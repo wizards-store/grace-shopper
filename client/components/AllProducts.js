@@ -44,6 +44,7 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
 const AllProductsContainer = connect(mapStateToProps, mapDispatchToProps)(
   AllProducts
 );
