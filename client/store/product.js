@@ -15,11 +15,14 @@ const getAllProducts = allProducts => ({ type: GET_ALL_PRODUCTS, allProducts });
  * THUNK CREATORS
  */
 
-export const products = () => dispatch =>
+export const products = () => dispatch => (
   axios
     .get(`/api/products`)
-    .then(res => dispatch(getAllProducts(res.data)))
-    .catch(err => console.error(err));
+    .then(res => {
+      dispatch(getAllProducts(res.data));
+    })
+    .catch(err => console.error(err))
+);
 
 /**
  * REDUCER

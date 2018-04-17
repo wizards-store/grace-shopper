@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { products } from '../store';
 
 class AllProducts extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadAllProducts();
   }
 
-  render() {
+  render () {
     return (
       <React.Fragment>
         {this.props.allProducts ? (
@@ -31,13 +31,13 @@ class AllProducts extends Component {
 }
 
 // container
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     allProducts: state.allProducts,
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     loadAllProducts: () => {
       return dispatch(products());
