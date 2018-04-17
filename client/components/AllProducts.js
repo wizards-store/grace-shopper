@@ -10,7 +10,7 @@ class AllProducts extends Component {
   render () {
     return (
       <React.Fragment>
-        {this.props.allProducts ? (
+        {this.props.allProducts.length ? (
           <div className="all-products">
             {this.props.allProducts.map(product => {
               return (
