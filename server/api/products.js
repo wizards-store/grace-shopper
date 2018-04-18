@@ -13,6 +13,8 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+// OB/JS: could use router.param to DRY out code...
+
 router.get('/:id', (req, res, next) => {
   Product.findById(req.params.id)
     .then(product => res.json(product))

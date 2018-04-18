@@ -1,0 +1,10 @@
+- Try using the issues
+- Like the tiny commits and PRs
+- Standardizing naming on issues / PRs
+- Standardize commit message format, for example [this one](https://seesparkbox.com/foundry/semantic_commit_messages)
+- Joshua, fix your email commit: https://help.github.com/articles/setting-your-commit-email-address-in-git/
+- Like that you've updated your README consider doing more of that
+- Consistent indentation
+- Use comments to clarify / structure code
+- Decide how you're going to style, and if you're going with a frontend framework (e.g. react-bootstrap) integrate it sooner rather than later
+- Tests: yay!

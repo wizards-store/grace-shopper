@@ -23,6 +23,7 @@ describe('Product model', () => {
           })
       })
 
+      // OB/JS: don't need `frog.dataValues.name` can just do `frog.name`
       it('expects name to be string', () => {
         expect(frog.dataValues.name).to.be.a('string')
       })

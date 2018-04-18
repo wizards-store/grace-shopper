@@ -38,6 +38,7 @@ export function fetchSingleProduct(productId) {
       .get(`/api/products/${productId}`)
       .then(res => dispatch(getSingleProduct(res.data)))
       .catch(err => console.error(err));
+      // OB/JS: nice! improvement: report error to user somehow, low hanging fruit "toast notification", e.g. react-toastr: https://github.com/tomchentw/react-toastr
   };
 }
 
@@ -48,11 +49,12 @@ export function allProductsReducer(state = [], action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.allProducts;
-
     default:
       return state;
   }
 }
+
+// OB/JS: consider simplifying to just having all products on state
 
 export function singleProductReducer(state = {}, action) {
   switch (action.type) {
