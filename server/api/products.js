@@ -14,7 +14,6 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  console.log('singleproductroute');
   Product.findById(req.params.id)
     .then(product => res.json(product))
     .catch(next);
