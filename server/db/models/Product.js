@@ -21,7 +21,7 @@ const Product = db.define('product', {
     },
     photo: {
         type: Sequelize.STRING,
-        defaultValue: 'https://nerdist.com/wp-content/uploads/2015/10/harry-potter-image.jpg'
+        defaultValue: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ_TkUBCyPp2wqsBYH3uFPSbakLS7sxXHCz5H3aWZZnjrES4bb'
     }
 });
 
