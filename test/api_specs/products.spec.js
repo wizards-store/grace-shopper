@@ -27,6 +27,7 @@ describe('Products routes', () => {
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('array')
+          // OB/JS: consider adding `const onlyProduct = res.body[0]` and checking if it's defined
           expect(res.body[0].name).to.be.equal(productObj.name)
           expect(Number(res.body[0].price)).to.be.equal(productObj.price)
         })
