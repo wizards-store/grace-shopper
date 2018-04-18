@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { products } from '../store';
+import { fetchAllProducts, fetchSingleProduct } from '../store';
 
 class AllProducts extends Component {
   componentDidMount() {
@@ -11,7 +11,7 @@ class AllProducts extends Component {
     return (
       <React.Fragment>
         {this.props.allProducts ? (
-          <div className="all-products">
+          <div className="all-products" onClick={this.handleClick}>
             {this.props.allProducts.map(product => {
               return (
                 <div key={product.id} className="single-product">
@@ -40,7 +40,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadAllProducts: () => {
-      return dispatch(products());
+      return dispatch(fetchAllProducts());
+    },
+    handleClick: () => {
+      return dispatch(fetchSingleProduct());
     },
   };
 }
