@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { products } from '../store';
+import { Link } from 'react-router-dom';
 
 class AllProducts extends Component {
-  componentDidMount () {
-    this.props.loadAllProducts();
-  }
-
-  render () {
+  render() {
     return (
       <React.Fragment>
         {this.props.allProducts.length ? (
@@ -16,7 +12,9 @@ class AllProducts extends Component {
               return (
                 <div key={product.id} className="single-product">
                   <img src={product.photo} />
-                  <h3>{product.name}</h3>
+                  <Link to={`/products/${product.id}`}>
+                    <h3>{product.name}</h3>
+                  </Link>
                   <p>{product.price}</p>
                 </div>
               );
@@ -31,22 +29,12 @@ class AllProducts extends Component {
 }
 
 // container
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     allProducts: state.allProducts,
   };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    loadAllProducts: () => {
-      return dispatch(products());
-    },
-  };
-}
-
-const AllProductsContainer = connect(mapStateToProps, mapDispatchToProps)(
-  AllProducts
-);
+const AllProductsContainer = connect(mapStateToProps, null)(AllProducts);
 
 export default AllProductsContainer;

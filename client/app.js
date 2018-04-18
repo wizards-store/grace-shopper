@@ -1,16 +1,19 @@
-import React from 'react';
-
+import React, { Component } from 'react';
 import { Navbar, AllProducts } from './components';
-import Routes from './routes'
+import store, { fetchAllProducts } from './store';
+import Routes from './routes';
 
-const App = () => {
-  return (
-    <div>
-      <Navbar />
-      <AllProducts />
-      <Routes />
-    </div>
-  );
-};
+export default class App extends Component {
+  componentDidMount() {
+    store.dispatch(fetchAllProducts());
+  }
 
-export default App;
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Routes />
+      </div>
+    );
+  }
+}
