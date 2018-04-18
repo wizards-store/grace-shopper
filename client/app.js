@@ -1,14 +1,18 @@
-import React from 'react';
-
+import React, { Component } from 'react';
 import { Navbar, AllProducts } from './components';
+import store, { fetchAllProducts } from './store';
 
-const App = () => {
-  return (
-    <div>
-      <Navbar />
-      <AllProducts />
-    </div>
-  );
-};
+export default class App extends Component {
+  componentDidMount() {
+    store.dispatch(fetchAllProducts());
+  }
 
-export default App;
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <AllProducts />
+      </div>
+    );
+  }
+}
