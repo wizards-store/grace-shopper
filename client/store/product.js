@@ -32,11 +32,14 @@ export const fetchAllProducts = () => dispatch => {
     .catch(err => console.error(err));
 };
 
-export const fetchSingleProduct = productId => dispatch =>
-  axios
-    .get(`/api/products/${productId}`)
-    .then(res => dispatch(getSingleProduct(res.data)))
-    .catch(err => console.error(err));
+export function fetchSingleProduct(productId) {
+  return function(dispatch) {
+    return axios
+      .get(`/api/products/${productId}`)
+      .then(res => dispatch(getSingleProduct(res.data)))
+      .catch(err => console.error(err));
+  };
+}
 
 /**
  * REDUCER

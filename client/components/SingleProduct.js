@@ -2,25 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store';
 
-const SingleProduct = props => {
-  const product = props.fetchProduct;
+class SingleProduct extends Component {
+  componentDidMount() {
+    this.props.fetchProduct();
+  }
 
-  return (
-    <div>
-      <h3>{product.name}</h3>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div>
+        <h3>{this.props.singleProduct.name}</h3>
+      </div>
+    );
+  }
+}
 
-function mapDispatchToProps(dispatch, ownProps) {
-  const productId = Number(ownProps.match.params.id);
-  console.log('what is productID', productId);
-
+function mapStateToProps(state) {
   return {
-    fetchProduct: fetchSingleProduct(productId),
+    allProducts: state.allProducts,
+    singleProduct: state.singleProduct,
   };
 }
 
-const SingleProductContainer = connect(null, mapDispatchToProps)(SingleProduct);
+function mapDispatchToProps(dispatch, ownProps) {
+  const productId = Number(ownProps.match.params.id);
+
+  return {
+    fetchProduct: () => dispatch(fetchSingleProduct(productId)),
+  };
+}
+
+const SingleProductContainer = connect(mapStateToProps, mapDispatchToProps)(
+  SingleProduct
+);
 
 export default SingleProductContainer;
