@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllProducts, fetchSingleProduct } from '../store';
+import { Link } from 'react-router-dom';
 
 class AllProducts extends Component {
-  componentDidMount() {
-    this.props.loadAllProducts();
-  }
-
   render() {
     return (
       <React.Fragment>
-        {this.props.allProducts ? (
-          <div className="all-products" onClick={this.handleClick}>
+        {this.props.allProducts.length ? (
+          <div className="all-products">
             {this.props.allProducts.map(product => {
               return (
                 <div key={product.id} className="single-product">
                   <img src={product.photo} />
-                  <h3>{product.name}</h3>
+                  <Link to={`/products/${product.id}`}>
+                    <h3>{product.name}</h3>
+                  </Link>
                   <p>{product.price}</p>
                 </div>
               );
@@ -37,18 +35,6 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadAllProducts: () => {
-      return dispatch(fetchAllProducts());
-    },
-    handleClick: () => {
-      return dispatch(fetchSingleProduct());
-    },
-  };
-}
-const AllProductsContainer = connect(mapStateToProps, mapDispatchToProps)(
-  AllProducts
-);
+const AllProductsContainer = connect(mapStateToProps, null)(AllProducts);
 
 export default AllProductsContainer;

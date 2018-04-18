@@ -24,11 +24,9 @@ const getSingleProduct = singleProduct => ({
  */
 
 export const fetchAllProducts = () => dispatch => {
-  console.log('do i get here?????');
   return axios
     .get(`/api/products`)
     .then(res => {
-      console.log('what is ress', res);
       dispatch(getAllProducts(res.data));
     })
     .catch(err => console.error(err));
