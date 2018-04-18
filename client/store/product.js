@@ -41,15 +41,22 @@ export const fetchSingleProduct = productId => dispatch =>
 /**
  * REDUCER
  */
-export default (state = [], action) => {
+export function allProductsReducer(state = [], action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.allProducts;
 
+    default:
+      return state;
+  }
+}
+
+export function singleProductReducer(state = {}, action) {
+  switch (action.type) {
     case GET_SINGLE_PRODUCT:
       return action.singleProduct;
 
     default:
       return state;
   }
-};
+}
