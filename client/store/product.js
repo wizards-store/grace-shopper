@@ -12,11 +12,11 @@ const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
  */
 const getAllProducts = allProducts => ({
   type: GET_ALL_PRODUCTS,
-  allProducts,
+  allProducts
 });
 const getSingleProduct = singleProduct => ({
   type: GET_SINGLE_PRODUCT,
-  singleProduct,
+  singleProduct
 });
 
 /**
@@ -32,8 +32,8 @@ export const fetchAllProducts = () => dispatch => {
     .catch(err => console.error(err));
 };
 
-export function fetchSingleProduct(productId) {
-  return function(dispatch) {
+export function fetchSingleProduct (productId) {
+  return function (dispatch) {
     return axios
       .get(`/api/products/${productId}`)
       .then(res => dispatch(getSingleProduct(res.data)))
@@ -44,22 +44,31 @@ export function fetchSingleProduct(productId) {
 /**
  * REDUCER
  */
-export function allProductsReducer(state = [], action) {
+export function productReducer (state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return action.allProducts;
-
-    default:
+      action.allProducts.forEach(product => {
+        state[product.id] = product;
+      });
       return state;
-  }
-}
 
-export function singleProductReducer(state = {}, action) {
-  switch (action.type) {
     case GET_SINGLE_PRODUCT:
-      return action.singleProduct;
+      return {
+        ...state,
+        [action.singleProduct.id]: action.singleProduct
+      };
 
     default:
       return state;
   }
 }
+
+// export function singleProductReducer (state = {}, action) {
+//   switch (action.type) {
+//     case GET_SINGLE_PRODUCT:
+//       return action.singleProduct;
+
+//     default:
+//       return state;
+//   }
+// }
