@@ -5,8 +5,5 @@ module.exports = router;
 router.post('/', (req, res, next) => {
   const productToAdd = req.body;
   req.session.cart[productToAdd.id] = productToAdd;
-  res
-    .status(201)
-    .json(req.session.cart)
-    .catch(next);
+  res.status(201).json(req.session.cart);
 });
