@@ -2,41 +2,70 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Icon, Image } from 'semantic-ui-react';
 import Payments from './Payments';
-// import { fetchAllCartItems }
+import { getCart } from '../store';
 
 class CartList extends Component {
-  // componentDidMount() {
-  //   this.props.fetchAllCartItems();
-  // }
+  componentDidMount () {
+    this.props.getCart();
+  }
 
   render () {
+    let cart = this.props.cart;
+    console.log('what is cart', cart);
+
     return (
       <div>
-        <Card>
-          <Image src="/assets/images/avatar/large/daniel.jpg" />
-          <Card.Content>
-            <Card.Header>Elder Wand</Card.Header>
-            <Card.Meta>Created Date</Card.Meta>
-            <Card.Description>Description</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Icon name="user" />
-              Quantity
-            </a>
-            <hr />
-            <a>
-              <Icon name="user" />
-              Price
-            </a>
-          </Card.Content>
-        </Card>
-        <Payments />
+        {Object.keys(cart).length ? (
+          <div>
+            {Object.keys(cart).map(key => {
+              return (
+                <div key={cart[key].id}>
+                  <Card>
+                    <Image src={cart[key].photo} />
+                    <Card.Content>
+                      <Card.Header>{cart[key].name}</Card.Header>
+                      <Card.Meta>{cart[key].createdAt}</Card.Meta>
+                      <Card.Description>
+                        {cart[key].description}
+                      </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <a>
+                        <Icon name="user" />
+                        Quantity
+                      </a>
+                      <hr />
+                      <a>
+                        <Icon name="user" />
+                        {cart[key].price}
+                      </a>
+                    </Card.Content>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+        <Payments cart={this.props.cart} />
       </div>
     );
   }
 }
 
-const CartListContainer = connect(null, null)(CartList);
+function mapStateToProps (state) {
+  return {
+    cart: state.cart,
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    getCart: () => dispatch(getCart()),
+  };
+}
+
+const CartListContainer = connect(mapStateToProps, mapDispatchToProps)(
+  CartList
+);
 
 export default CartListContainer;
