@@ -12,11 +12,11 @@ User.hasMany(Order);
 Order.belongsTo(User);
 
 // Many-to-Many Associations
-Product.hasMany(Category);
-Category.belongsToMany(Product);
+Product.belongsToMany(Category, { through: 'Product_Category' });
+Category.belongsToMany(Product, { through: 'Product_Category' });
 
-Order.hasMany(Product);
-Product.belongsToMany(Order);
+Order.belongsToMany(Product, { through: 'Order_Product' });
+Product.belongsToMany(Order, { through: 'Order_Product' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
