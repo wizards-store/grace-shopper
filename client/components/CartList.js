@@ -15,6 +15,7 @@ class CartList extends Component {
         <Card>
           <Image src="/assets/images/avatar/large/daniel.jpg" />
           <Card.Content>
+            <button className="negative mini ui right floated button">X</button>
             <Card.Header>Elder Wand</Card.Header>
             <Card.Meta>Created Date</Card.Meta>
             <Card.Description>Description</Card.Description>
