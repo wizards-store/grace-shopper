@@ -6,7 +6,7 @@ router.post('/', (req, res, next) => {
   const productToAdd = req.body;
   req.session.cart[productToAdd.id] = productToAdd;
   res
-    .send(201)
+    .status(201)
     .json(req.session.cart)
     .catch(next);
 });
