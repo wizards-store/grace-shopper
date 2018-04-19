@@ -15,12 +15,12 @@ const CartForm = props => {
   );
 };
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   // const product = this.props;
   // console.log('what is product', product);
 
   return {
-    handleSubmit(product, evt) {
+    handleSubmit (product, evt) {
       evt.preventDefault();
       console.log('its working', product);
       dispatch(postCart(product));

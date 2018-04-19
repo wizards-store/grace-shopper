@@ -4,11 +4,11 @@ import { fetchSingleProduct } from '../store';
 import CartForm from './CartForm';
 
 class SingleProduct extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchProduct();
   }
 
-  render() {
+  render () {
     return (
       <div>
         {this.props.product ? <h3>{this.props.product.name}</h3> : null}
@@ -18,14 +18,14 @@ class SingleProduct extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps (state, ownProps) {
   const productId = Number(ownProps.match.params.id);
   return {
     product: state.products[productId],
   };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps (dispatch, ownProps) {
   const productId = Number(ownProps.match.params.id);
 
   return {

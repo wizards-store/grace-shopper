@@ -9,7 +9,7 @@ class CartList extends Component {
   //   this.props.fetchAllCartItems();
   // }
 
-  render() {
+  render () {
     return (
       <div>
         <Card>
