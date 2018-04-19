@@ -6,17 +6,22 @@ import history from '../history';
  */
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
+const POST_SINGLE_PRODUCT = 'POST_SINGLE_PRODUCT';
 
 /**
  * ACTION CREATORS
  */
 const getAllProducts = allProducts => ({
   type: GET_ALL_PRODUCTS,
-  allProducts
+  allProducts,
 });
 const getSingleProduct = singleProduct => ({
   type: GET_SINGLE_PRODUCT,
-  singleProduct
+  singleProduct,
+});
+const postSingleProduct = singleProduct => ({
+  type: POST_SINGLE_PRODUCT,
+  singleProduct,
 });
 
 /**
@@ -29,8 +34,8 @@ export const fetchAllProducts = () => dispatch => {
     .catch(err => console.error(err));
 };
 
-export function fetchSingleProduct (productId) {
-  return function (dispatch) {
+export function fetchSingleProduct(productId) {
+  return function(dispatch) {
     return axios
       .get(`/api/products/${productId}`)
       .then(res => dispatch(getSingleProduct(res.data)))
@@ -38,10 +43,19 @@ export function fetchSingleProduct (productId) {
   };
 }
 
+export function postProduct(product) {
+  return function(dispatch) {
+    return axios
+      .post(`/api/cart`, product)
+      .then(res => dispatch(postSingleProduct(res.data)))
+      .catch(err => console.error(err));
+  };
+}
+
 /**
  * REDUCER
  */
-export default function productReducer (state = {}, action) {
+export default function productReducer(state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       let newState = {};
@@ -53,8 +67,11 @@ export default function productReducer (state = {}, action) {
     case GET_SINGLE_PRODUCT:
       return {
         ...state,
-        [action.singleProduct.id]: action.singleProduct
+        [action.singleProduct.id]: action.singleProduct,
       };
+
+    case POST_SINGLE_PRODUCT:
+      return [...state, action.singleProduct];
 
     default:
       return state;
