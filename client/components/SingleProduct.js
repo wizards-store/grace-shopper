@@ -10,16 +10,16 @@ class SingleProduct extends Component {
   render () {
     return (
       <div>
-        <h3>{this.props.singleProduct.name}</h3>
+        <h3>{this.props.product.name}</h3>
       </div>
     );
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
+  const productId = Number(ownProps.match.params.id);
   return {
-    allProducts: state.allProducts,
-    singleProduct: state.singleProduct,
+    product: state.products[productId]
   };
 }
 
@@ -27,12 +27,11 @@ function mapDispatchToProps (dispatch, ownProps) {
   const productId = Number(ownProps.match.params.id);
 
   return {
-    fetchProduct: () => dispatch(fetchSingleProduct(productId)),
+    fetchProduct: () => dispatch(fetchSingleProduct(productId))
   };
 }
 
 const SingleProductContainer = connect(mapStateToProps, mapDispatchToProps)(
   SingleProduct
 );
-
 export default SingleProductContainer;

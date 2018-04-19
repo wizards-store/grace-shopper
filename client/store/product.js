@@ -12,23 +12,20 @@ const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
  */
 const getAllProducts = allProducts => ({
   type: GET_ALL_PRODUCTS,
-  allProducts,
+  allProducts
 });
 const getSingleProduct = singleProduct => ({
   type: GET_SINGLE_PRODUCT,
-  singleProduct,
+  singleProduct
 });
 
 /**
  * THUNK CREATORS
  */
-
 export const fetchAllProducts = () => dispatch => {
   return axios
     .get(`/api/products`)
-    .then(res => {
-      dispatch(getAllProducts(res.data));
-    })
+    .then(res => dispatch(getAllProducts(res.data)))
     .catch(err => console.error(err));
 };
 
@@ -44,22 +41,32 @@ export function fetchSingleProduct (productId) {
 /**
  * REDUCER
  */
-export function allProductsReducer (state = [], action) {
+export default function productReducer (state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return action.allProducts;
+      let newState = {};
+      action.allProducts.forEach(product => {
+        newState[product.id] = product;
+      });
+      return newState;
 
-    default:
-      return state;
-  }
-}
-
-export function singleProductReducer (state = {}, action) {
-  switch (action.type) {
     case GET_SINGLE_PRODUCT:
-      return action.singleProduct;
+      return {
+        ...state,
+        [action.singleProduct.id]: action.singleProduct
+      };
 
     default:
       return state;
   }
 }
+
+// export function singleProductReducer (state = {}, action) {
+//   switch (action.type) {
+//     case GET_SINGLE_PRODUCT:
+//       return action.singleProduct;
+
+//     default:
+//       return state;
+//   }
+// }
