@@ -12,3 +12,10 @@ router.post('/', (req, res, next) => {
   req.session.cart[productToAdd.id] = productToAdd;
   res.status(201).json(req.session.cart);
 });
+
+// DELETE /cart
+router.delete('/', (req, res, next) => {
+  const productToDelete = req.body;
+  delete req.session.cart[productToDelete.id];
+  res.status(204).json(req.session.cart);
+});
