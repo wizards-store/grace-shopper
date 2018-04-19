@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
-import { postProduct } from '../store';
+import { postCart } from '../store';
 
 const CartForm = props => {
   const { product, handleSubmit } = props;
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
     handleSubmit(product, evt) {
       evt.preventDefault();
       console.log('its working', product);
-      dispatch(postProduct(product));
+      dispatch(postCart(product));
     },
   };
 }
