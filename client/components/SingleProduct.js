@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store';
+import Payments from './Payments';
 
 class SingleProduct extends Component {
   componentDidMount () {
@@ -11,6 +12,8 @@ class SingleProduct extends Component {
     return (
       <div>
         <h3>{this.props.product.name}</h3>
+        <Payments />
+
       </div>
     );
   }
