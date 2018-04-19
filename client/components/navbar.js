@@ -39,7 +39,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
+    handleClick () {
       dispatch(logout());
     },
   };

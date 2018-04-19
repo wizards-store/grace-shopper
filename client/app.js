@@ -4,11 +4,11 @@ import store, { fetchAllProducts } from './store';
 import Routes from './routes';
 
 export default class App extends Component {
-  componentDidMount() {
+  componentDidMount () {
     store.dispatch(fetchAllProducts());
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Navbar />
