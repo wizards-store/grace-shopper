@@ -10,8 +10,6 @@ class AllProducts extends Component {
 
   render () {
     let products = this.props.products;
-    console.log('products: ', products);
-    console.log('Object.keys: ', Object.keys(products));
 
     return (
       <React.Fragment>

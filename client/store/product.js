@@ -44,10 +44,11 @@ export function fetchSingleProduct (productId) {
 export default function productReducer (state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
+      let newState = {};
       action.allProducts.forEach(product => {
-        state[product.id] = product;
+        newState[product.id] = product;
       });
-      return state;
+      return newState;
 
     case GET_SINGLE_PRODUCT:
       return {
