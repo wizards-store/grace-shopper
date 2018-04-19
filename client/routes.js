@@ -17,11 +17,11 @@ import { me } from './store';
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadInitialData();
   }
 
-  render() {
+  render () {
     const { isLoggedIn } = this.props;
 
     return (
@@ -59,7 +59,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData() {
+    loadInitialData () {
       dispatch(me());
     },
   };

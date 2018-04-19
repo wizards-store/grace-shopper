@@ -6,11 +6,11 @@ import CartForm from './CartForm';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 class AllProducts extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchAllProducts();
   }
 
-  render() {
+  render () {
     let products = this.props.products;
 
     return (
@@ -45,13 +45,13 @@ class AllProducts extends Component {
 }
 
 // Container
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     products: state.products,
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     fetchAllProducts: () => dispatch(fetchAllProducts()),
   };

@@ -27,7 +27,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <Link to="/products">Products</Link>
           </li>
           <li>
-            <Link to="/cartList">CartList</Link>
+            <Link to="/cartList">Cart</Link>
           </li>
           <li>
             <Link to="/login">Login</Link>
@@ -52,7 +52,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
+    handleClick () {
       dispatch(logout());
     },
   };
