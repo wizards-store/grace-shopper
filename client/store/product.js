@@ -22,13 +22,10 @@ const getSingleProduct = singleProduct => ({
 /**
  * THUNK CREATORS
  */
-
 export const fetchAllProducts = () => dispatch => {
   return axios
     .get(`/api/products`)
-    .then(res => {
-      dispatch(getAllProducts(res.data));
-    })
+    .then(res => dispatch(getAllProducts(res.data)))
     .catch(err => console.error(err));
 };
 
@@ -44,7 +41,7 @@ export function fetchSingleProduct (productId) {
 /**
  * REDUCER
  */
-export function productReducer (state = {}, action) {
+export default function productReducer (state = {}, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       action.allProducts.forEach(product => {

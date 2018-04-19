@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchAllProducts } from '../store';
 
 class AllProducts extends Component {
-  render() {
+  componentDidMount () {
+    this.props.fetchAllProducts();
+  }
+
+  render () {
+    let products = this.props.products;
+    console.log('products: ', products);
+    console.log('Object.keys: ', Object.keys(products));
+
     return (
       <React.Fragment>
-        {this.props.allProducts.length ? (
+        {Object.keys(products).length ? (
           <div className="all-products">
-            {this.props.allProducts.map(product => {
+            {Object.keys(products).map(key => {
               return (
-                <div key={product.id} className="single-product">
-                  <img src={product.photo} />
-                  <Link to={`/products/${product.id}`}>
-                    <h3>{product.name}</h3>
+                <div key={products[key].id} className="single-product">
+                  <img src={products[key].photo} />
+                  <Link to={`/products/${products[key].id}`}>
+                    <h3>{products[key].name}</h3>
                   </Link>
-                  <p>{product.price}</p>
+                  <p>{products[key].price}</p>
                 </div>
               );
             })}
@@ -28,13 +37,20 @@ class AllProducts extends Component {
   }
 }
 
-// container
-function mapStateToProps(state) {
+// Container
+function mapStateToProps (state) {
   return {
-    allProducts: state.allProducts,
+    products: state.products
   };
 }
 
-const AllProductsContainer = connect(mapStateToProps, null)(AllProducts);
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchAllProducts: () => dispatch(fetchAllProducts())
+  };
+}
 
+const AllProductsContainer = connect(mapStateToProps, mapDispatchToProps)(
+  AllProducts
+);
 export default AllProductsContainer;

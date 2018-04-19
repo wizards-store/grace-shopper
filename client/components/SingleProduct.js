@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store';
 
 class SingleProduct extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchProduct();
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h3>{this.props.singleProduct.name}</h3>
@@ -16,23 +16,21 @@ class SingleProduct extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    allProducts: state.allProducts,
-    singleProduct: state.singleProduct,
+    products: state.products
   };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps (dispatch, ownProps) {
   const productId = Number(ownProps.match.params.id);
 
   return {
-    fetchProduct: () => dispatch(fetchSingleProduct(productId)),
+    fetchProduct: () => dispatch(fetchSingleProduct(productId))
   };
 }
 
 const SingleProductContainer = connect(mapStateToProps, mapDispatchToProps)(
   SingleProduct
 );
-
 export default SingleProductContainer;
