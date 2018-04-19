@@ -6,18 +6,22 @@ const AllProducts = props => {
   return (
     <React.Fragment>
       {props.allProducts.length ? (
-        <div className="all-products">
+        <div>
+          <h2>Products</h2>
+          <div className="all-products">
           {props.allProducts.map(product => {
             return (
               <div key={product.id} className="single-product">
-                <img src={product.photo} />
+                <img className="product-list-img" src={product.photo} />
                 <Link to={`/products/${product.id}`}>
                   <h3>{product.name}</h3>
                 </Link>
                 <p>{product.price}</p>
               </div>
             );
-          })}
+          }
+        )}
+        </div>
         </div>
       ) : (
         <p>There are currently no products for sale.</p>
