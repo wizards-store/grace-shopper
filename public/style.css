@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @font-face {
   font-family: 'Harry-Potter';
   src:url('./fonts/Harry-Potter.ttf.woff') format('woff'),
@@ -7,7 +7,7 @@
       url('./fonts/Harry-Potter.ttf.eot?#iefix') format('embedded-opentype');
   font-weight: normal;
   font-style: normal;
-} */
+}
 
 body {
   font-family: 'Source Sans Pro', sans-serif;

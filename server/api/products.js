@@ -4,7 +4,6 @@ const { Product } = require('../db/models');
 router.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => {
-      console.log('????????', req.session.cart);
       res.json(products);
     })
     .catch(next);

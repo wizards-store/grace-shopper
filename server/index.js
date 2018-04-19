@@ -54,7 +54,6 @@ const createApp = () => {
   app.use((req, res, next) => {
     // if there is no cart on session, make a new empty one
     if (!req.session.cart) req.session.cart = {};
-    console.log('req.session cart===>', req.session.cart);
     next();
   });
 
