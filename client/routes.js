@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
+  GeneralHome,
   Login,
   Signup,
   UserHome,
@@ -15,17 +16,17 @@ import { me } from './store';
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadInitialData();
   }
 
-  render() {
+  render () {
     const { isLoggedIn } = this.props;
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={AllProducts} />
+        <Route exact path="/" component={GeneralHome} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
@@ -56,7 +57,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData() {
+    loadInitialData () {
       dispatch(me());
     },
   };

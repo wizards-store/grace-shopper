@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, AllProducts } from './components';
-import store, { fetchAllProducts } from './store';
+import { Navbar } from './components';
 import Routes from './routes';
 
 export default class App extends Component {
-  componentDidMount() {
-    store.dispatch(fetchAllProducts());
-  }
-
-  render() {
+  render () {
     return (
       <div>
         <Navbar />
