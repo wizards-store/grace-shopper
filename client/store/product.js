@@ -32,8 +32,8 @@ export const fetchAllProducts = () => dispatch => {
     .catch(err => console.error(err));
 };
 
-export function fetchSingleProduct(productId) {
-  return function(dispatch) {
+export function fetchSingleProduct (productId) {
+  return function (dispatch) {
     return axios
       .get(`/api/products/${productId}`)
       .then(res => dispatch(getSingleProduct(res.data)))
@@ -44,7 +44,7 @@ export function fetchSingleProduct(productId) {
 /**
  * REDUCER
  */
-export function allProductsReducer(state = [], action) {
+export function allProductsReducer (state = [], action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.allProducts;
@@ -54,7 +54,7 @@ export function allProductsReducer(state = [], action) {
   }
 }
 
-export function singleProductReducer(state = {}, action) {
+export function singleProductReducer (state = {}, action) {
   switch (action.type) {
     case GET_SINGLE_PRODUCT:
       return action.singleProduct;
