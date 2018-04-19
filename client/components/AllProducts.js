@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
+import CartForm from './CartForm';
+import { Card, Icon, Image } from 'semantic-ui-react';
 
 class AllProducts extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.fetchAllProducts();
   }
 
-  render () {
+  render() {
     let products = this.props.products;
 
     return (
@@ -18,11 +20,18 @@ class AllProducts extends Component {
             {Object.keys(products).map(key => {
               return (
                 <div key={products[key].id} className="single-product">
-                  <img src={products[key].photo} />
-                  <Link to={`/products/${products[key].id}`}>
-                    <h3>{products[key].name}</h3>
-                  </Link>
-                  <p>{products[key].price}</p>
+                  <Card>
+                    <Image src={products[key].photo} />
+                    <Card.Content>
+                      <Link to={`/products/${products[key].id}`}>
+                        <h3>{products[key].name}</h3>
+                      </Link>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <p>{products[key].price}</p>
+                      <CartForm product={products[key]} />
+                    </Card.Content>
+                  </Card>
                 </div>
               );
             })}
@@ -36,15 +45,15 @@ class AllProducts extends Component {
 }
 
 // Container
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
-    products: state.products
+    products: state.products,
   };
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    fetchAllProducts: () => dispatch(fetchAllProducts())
+    fetchAllProducts: () => dispatch(fetchAllProducts()),
   };
 }
 

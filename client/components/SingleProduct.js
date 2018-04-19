@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store';
-import Payments from './Payments';
+import CartForm from './CartForm';
 
 class SingleProduct extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.fetchProduct();
   }
 
-  render () {
+  render() {
     return (
       <div>
-        <h3>{this.props.product.name}</h3>
-        <Payments />
-
+        {this.props.product ? <h3>{this.props.product.name}</h3> : null}
+        <CartForm product={this.props.product} />
       </div>
     );
   }
 }
 
-function mapStateToProps (state, ownProps) {
+function mapStateToProps(state, ownProps) {
   const productId = Number(ownProps.match.params.id);
   return {
-    product: state.products[productId]
+    product: state.products[productId],
   };
 }
 
-function mapDispatchToProps (dispatch, ownProps) {
+function mapDispatchToProps(dispatch, ownProps) {
   const productId = Number(ownProps.match.params.id);
 
   return {
-    fetchProduct: () => dispatch(fetchSingleProduct(productId))
+    fetchProduct: () => dispatch(fetchSingleProduct(productId)),
   };
 }
 

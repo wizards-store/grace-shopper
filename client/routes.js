@@ -9,6 +9,7 @@ import {
   UserHome,
   AllProducts,
   SingleProduct,
+  CartList,
 } from './components';
 import { me } from './store';
 
@@ -16,11 +17,11 @@ import { me } from './store';
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData();
   }
 
-  render () {
+  render() {
     const { isLoggedIn } = this.props;
 
     return (
@@ -29,6 +30,7 @@ class Routes extends Component {
         <Route exact path="/" component={GeneralHome} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/cartList" component={CartList} />
         <Route exact path="/products" component={AllProducts} />
         <Route path="/products/:id" component={SingleProduct} />
         {isLoggedIn && (
@@ -57,7 +59,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me());
     },
   };

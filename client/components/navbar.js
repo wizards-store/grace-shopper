@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+import CartList from './CartList';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
@@ -19,10 +20,21 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       ) : (
         <ul className="navMenu">
           {/* The navbar will show these links before you log in */}
-          <li className="homeLogo"><Link to="/">Wizard Supply Shop</Link></li>
-          <li><Link to="/products">Products</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/signup">Sign Up</Link></li>
+          <li className="homeLogo">
+            <Link to="/">Wizard Supply Shop</Link>
+          </li>
+          <li>
+            <Link to="/products">Products</Link>
+          </li>
+          <li>
+            <Link to="/cartList">CartList</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/signup">Sign Up</Link>
+          </li>
         </ul>
       )}
     </nav>
@@ -40,7 +52,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick () {
+    handleClick() {
       dispatch(logout());
     },
   };
