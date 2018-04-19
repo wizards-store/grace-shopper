@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
@@ -29,8 +29,8 @@ class AllProducts extends Component {
           </div>
         ) : (
           <p>There are currently no products for sale.</p>
-      )}
-    </React.Fragment>
+        )}
+      </React.Fragment>
     );
   }
 }
