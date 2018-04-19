@@ -1,5 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@font-face {
+  font-family: 'Harry-Potter';
+  src:url('./fonts/Harry-Potter.ttf.woff') format('woff'),
+      url('./fonts/Harry-Potter.ttf.svg#Harry-Potter') format('svg'),
+      url('./fonts/Harry-Potter.ttf.eot'),
+      url('./fonts/Harry-Potter.ttf.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 body {
-  font-family: sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
 a {
@@ -18,4 +32,35 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.navMenu {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.navMenu > :nth-child(2) {
+  margin-right: auto;
+}
+
+.homeLogo {
+  font-family: 'Harry-Potter';
+  font-size: 1.75em;
+}
+
+/* center logo */
+.logo {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.all-products {
+  display: flex;
+  flex-direction: row;
+}
+
+.product-list-img {
+/* AP: figure out how to standardize product thumbnail image size */
 }

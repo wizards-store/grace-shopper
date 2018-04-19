@@ -18,7 +18,6 @@ class SingleProduct extends Component {
 
 function mapStateToProps (state, ownProps) {
   const productId = Number(ownProps.match.params.id);
-
   return {
     product: state.products[productId]
   };
