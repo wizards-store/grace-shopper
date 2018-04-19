@@ -31,8 +31,9 @@ class AllProducts extends Component {
           <p>There are currently no products for sale.</p>
       )}
     </React.Fragment>
-  );
-};
+    );
+  }
+}
 
 // Container
 function mapStateToProps (state) {
