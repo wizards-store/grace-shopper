@@ -10,15 +10,17 @@ class SingleProduct extends Component {
   render () {
     return (
       <div>
-        <h3>{this.props.singleProduct.name}</h3>
+        <h3>{this.props.product.name}</h3>
       </div>
     );
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
+  const productId = Number(ownProps.match.params.id);
+
   return {
-    products: state.products
+    product: state.products[productId]
   };
 }
 
