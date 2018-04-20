@@ -47,13 +47,13 @@ class AllProducts extends Component {
 // Container
 function mapStateToProps (state) {
   return {
-    products: state.products,
+    products: state.products
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchAllProducts: () => dispatch(fetchAllProducts()),
+    fetchAllProducts: () => dispatch(fetchAllProducts())
   };
 }
 
