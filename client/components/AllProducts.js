@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
 import CartForm from './CartForm';
+import MenuSubMenu from './Menu';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 class AllProducts extends Component {
@@ -15,6 +16,7 @@ class AllProducts extends Component {
 
     return (
       <React.Fragment>
+        <MenuSubMenu />
         {Object.keys(products).length ? (
           <div className="all-products">
             {Object.keys(products).map(key => {

@@ -11,4 +11,3 @@ export { default as UserHome } from './user-home';
 export { default as CartForm } from './CartForm';
 export { default as CartList } from './CartList';
 export { Login, Signup } from './AuthForm';
-export { default as Sidebar } from './Sidebar';

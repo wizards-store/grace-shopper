@@ -9,8 +9,7 @@ import {
   UserHome,
   AllProducts,
   SingleProduct,
-  CartList,
-  Sidebar
+  CartList
 } from './components';
 import { me } from './store';
 
@@ -32,8 +31,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/cartList" component={CartList} />
-        <Route exact path="/products" component={Sidebar} />{' '}
-        {/*AllProducts is rendered within the Sidebar component*/}
+        <Route exact path="/products" component={AllProducts} />
         <Route path="/products/:id" component={SingleProduct} />
         {isLoggedIn && (
           <Switch>
