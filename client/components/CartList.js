@@ -17,9 +17,9 @@ class CartList extends Component {
       <div>
         {Object.keys(cart).length ? (
           <div>
-            {Object.keys(cart).map(key => {
+            {Object.keys(cart).map((key, index) => {
               return (
-                <div key={cart[key].id}>
+                <div key={index}>
                   <Card>
                     <Image src={cart[key].photo} />
                     <Card.Content>
@@ -32,12 +32,12 @@ class CartList extends Component {
                     <Card.Content extra>
                       <a>
                         <Icon name="user" />
-                        Quantity
+                        {cart[key].quantity}
                       </a>
                       <hr />
                       <a>
                         <Icon name="user" />
-                        {cart[key].price}
+                        {cart[key].price * cart[key].quantity}
                       </a>
                     </Card.Content>
                   </Card>
