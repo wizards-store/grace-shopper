@@ -13,6 +13,12 @@ class AllProducts extends Component {
 
   render () {
     let products = this.props.products;
+    let categories = [];
+    products.forEach(product => {
+      if (!categories.indexOf(product.category)) {
+        categories.push(product.category);
+      }
+    });
 
     return (
       <React.Fragment>
