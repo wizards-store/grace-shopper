@@ -32,12 +32,12 @@ class CartList extends Component {
                     <Card.Content extra>
                       <a>
                         <Icon name="user" />
-                        Quantity
+                        {cart[key].quantity}
                       </a>
                       <hr />
                       <a>
                         <Icon name="user" />
-                        {cart[key].price}
+                        {cart[key].price * cart[key].quantity}
                       </a>
                     </Card.Content>
                   </Card>
