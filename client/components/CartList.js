@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import Payments from './Payments';
-import { getCart } from '../store';
+import { getCart, deleteProduct, postCart, subtractQuantity } from '../store';
 
 class CartList extends Component {
   componentDidMount () {
@@ -10,8 +10,8 @@ class CartList extends Component {
   }
 
   render () {
+    const { handleClick, handleAddClick, handleSubtractClick } = this.props;
     let cart = this.props.cart;
-    console.log('what is cart', cart);
 
     return (
       <div>
@@ -23,19 +23,37 @@ class CartList extends Component {
                   <Card>
                     <Image src={cart[key].photo} />
                     <Card.Content>
-                      <button className="negative mini ui right floated button">X</button>
+                      <Button
+                        onClick={() => handleClick(cart[key])}
+                        className="negative mini ui right floated button"
+                      >
+                        X
+                      </Button>
                       <Card.Header>{cart[key].name}</Card.Header>
                       <Card.Meta>{cart[key].createdAt}</Card.Meta>
                       <Card.Description>
                         {cart[key].description}
                       </Card.Description>
                     </Card.Content>
-      
+
                     <Card.Content extra>
                       <a>
                         <Icon name="user" />
                         {cart[key].quantity}
                       </a>
+                      <hr />
+                      <Button
+                        onClick={() => handleSubtractClick(cart[key])}
+                        color="red"
+                      >
+                        -
+                      </Button>
+                      <Button
+                        onClick={() => handleAddClick(cart[key])}
+                        color="teal"
+                      >
+                        +
+                      </Button>
                       <hr />
                       <a>
                         <Icon name="user" />
@@ -63,6 +81,15 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     getCart: () => dispatch(getCart()),
+    handleClick (product) {
+      dispatch(deleteProduct(product));
+    },
+    handleAddClick (product) {
+      dispatch(postCart(product));
+    },
+    handleSubtractClick (product) {
+      dispatch(subtractQuantity(product));
+    },
   };
 }
 
