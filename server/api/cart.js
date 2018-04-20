@@ -9,8 +9,15 @@ router.get('/', (req, res, next) => {
 // POST /cart
 router.post('/', (req, res, next) => {
   const productToAdd = req.body;
-  req.session.cart[productToAdd.id] = productToAdd;
-  res.status(201).json(req.session.cart);
+
+  if (!req.session.cart[productToAdd.id]) {
+    req.session.cart[productToAdd.id] = productToAdd;
+    req.session.cart[productToAdd.id].quantity = Number(1);
+    res.status(201).json(req.session.cart[productToAdd.id]);
+  } else {
+    req.session.cart[productToAdd.id].quantity += 1;
+    res.status(201).json(req.session.cart[productToAdd.id]);
+  }
 });
 
 // DELETE /cart

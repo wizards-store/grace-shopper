@@ -22,7 +22,7 @@ function mapDispatchToProps (dispatch) {
   return {
     handleSubmit (product, evt) {
       evt.preventDefault();
-      console.log('its working', product);
+      // console.log('its working', product);
       dispatch(postCart(product));
     },
   };
