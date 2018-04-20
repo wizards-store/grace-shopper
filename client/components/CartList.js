@@ -17,9 +17,9 @@ class CartList extends Component {
       <div>
         {Object.keys(cart).length ? (
           <div>
-            {Object.keys(cart).map((key, index) => {
+            {Object.keys(cart).map(key => {
               return (
-                <div key={index}>
+                <div key={cart[key].id}>
                   <Card>
                     <Image src={cart[key].photo} />
                     <Card.Content>
