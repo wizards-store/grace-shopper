@@ -2,6 +2,7 @@ const User = require('./User');
 const Product = require('./Product');
 const Category = require('./Category');
 const Order = require('./Order');
+const Order_Product = require('./Order_Product');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -9,14 +10,25 @@ const Order = require('./Order');
 
 // One-to-Many Associations
 User.hasMany(Order);
-Order.belongsTo(User);
+Order.belongsTo(User, {
+  foreignKey: {
+    name: 'userId',
+    defaultValue: 1,
+  },
+});
 
 // Many-to-Many Associations
 Product.belongsToMany(Category, { through: 'Product_Category' });
 Category.belongsToMany(Product, { through: 'Product_Category' });
 
-Order.belongsToMany(Product, { through: 'Order_Product' });
-Product.belongsToMany(Order, { through: 'Order_Product' });
+Order.belongsToMany(Product, {
+  through: Order_Product,
+  foreignKey: 'orderId',
+});
+Product.belongsToMany(Order, {
+  through: Order_Product,
+  foreignKey: 'productId',
+});
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -28,5 +40,6 @@ module.exports = {
   User,
   Product,
   Category,
-  Order
+  Order,
+  Order_Product,
 };
