@@ -23,14 +23,16 @@ class CartList extends Component {
                   <Card>
                     <Image src={cart[key].photo} />
                     <Card.Content>
-                      <button className="negative mini ui right floated button">X</button>
+                      <button className="negative mini ui right floated button">
+                        X
+                      </button>
                       <Card.Header>{cart[key].name}</Card.Header>
                       <Card.Meta>{cart[key].createdAt}</Card.Meta>
                       <Card.Description>
                         {cart[key].description}
                       </Card.Description>
                     </Card.Content>
-      
+
                     <Card.Content extra>
                       <a>
                         <Icon name="user" />
@@ -56,13 +58,13 @@ class CartList extends Component {
 
 function mapStateToProps (state) {
   return {
-    cart: state.cart,
+    cart: state.cart
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getCart: () => dispatch(getCart()),
+    getCart: () => dispatch(getCart())
   };
 }
 
