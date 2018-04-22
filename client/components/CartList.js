@@ -65,7 +65,9 @@ class CartList extends Component {
               );
             })}
           </div>
-        ) : null}
+        ) : (
+          <p>There is currently nothing in cart.</p>
+        )}
         <Payments cart={this.props.cart} />
       </div>
     );

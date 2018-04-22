@@ -5,6 +5,7 @@ const POST_SINGLE_CART = 'POST_SINGLE_CART';
 const GET_SINGLE_CART = 'GET_SINGLE_CART';
 const DELETE_SINGLE_PRODUCT = 'DELETE_SINGLE_PRODUCT';
 const SUBTRACT_SINGLE_QUANTITY = 'SUBTRACT_SINGLE_QUANTITY';
+const POST_SINGLE_PAYMENT = 'POST_SINGLE_PAYMENT';
 
 const postSingleCart = singleProduct => ({
   type: POST_SINGLE_CART,
@@ -23,6 +24,11 @@ const deleteSingleProduct = singleCart => ({
 
 const subtractSingleQuantity = singleCart => ({
   type: SUBTRACT_SINGLE_QUANTITY,
+  singleCart,
+});
+
+const postSinglePayment = singleCart => ({
+  type: POST_SINGLE_PAYMENT,
   singleCart,
 });
 
@@ -68,6 +74,16 @@ export function deleteProduct (product) {
   };
 }
 
+export function postPayment (token) {
+  return function (dispatch) {
+    return axios
+      .post(`/api/stripe`, token)
+      .then(res => dispatch(postSinglePayment(res.data)))
+      .then(() => history.push('/success'))
+      .catch(err => console.error(err));
+  };
+}
+
 export default function cartReducer (state = {}, action) {
   switch (action.type) {
     case POST_SINGLE_CART:
@@ -83,6 +99,9 @@ export default function cartReducer (state = {}, action) {
       return action.singleCart;
 
     case DELETE_SINGLE_PRODUCT:
+      return action.singleCart;
+
+    case POST_SINGLE_PAYMENT:
       return action.singleCart;
 
     default:

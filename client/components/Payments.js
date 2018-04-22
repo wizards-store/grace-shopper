@@ -21,7 +21,7 @@ class Payments extends Component {
       <StripeCheckout
         name="Wizard Supply Shop"
         description="Thanks for coming by!"
-        amount={this.total()} // this should be dynamic based on amount in cart - this is in cents -> 5 dollar here
+        amount={this.total()}
         token={token => handleToken(token)}
         stripeKey="pk_test_tFYxJxufub7z64MriHlPVwy3"
         allowRememberMe={false}

@@ -4,15 +4,11 @@ const _ = require('lodash');
 const Sequelize = require('sequelize');
 const models = require('../db/models');
 const Order = models.Order;
-const User = models.User;
 const Product = models.Product;
 const Order_Product = models.Order_Product;
 module.exports = router;
 
 router.post('/', async (req, res, next) => {
-  console.log('what is req.session', req.session);
-  console.log('what is req.session.sid', req.session.id);
-
   const total = () => {
     const cart = req.session.cart;
     let sum = 0;
@@ -33,31 +29,13 @@ router.post('/', async (req, res, next) => {
     return key.startsWith('id') || key.startsWith('quantity');
   };
 
-  const predicateId = (value, key) => {
-    return key.startsWith('id');
-  };
-
-  const predicateQuantity = (value, key) => {
-    return key.startsWith('quantity');
-  };
-
   // [{id: 1, name: 'hehe', ..}, {id: 2, ...}]
   const arrayOfProducts = Object.values(req.session.cart);
   const productObj = arrayOfProducts.map(filterObj => {
     return _.pickBy(filterObj, predicate);
   });
 
-  // [{id: 1, quantity: 2}]
-
-  const productIdArray = arrayOfProducts.map(filterObj => {
-    return _.pickBy(filterObj, predicateId).id;
-  });
-
-  const productQuantityArray = arrayOfProducts.map(filterObj => {
-    return _.pickBy(filterObj, predicateQuantity).quantity;
-  });
-
-  const order1 = await Order.create({
+  await Order.create({
     total: charge.amount,
     submissionDate: null,
     sessionId: req.session.id,
@@ -79,14 +57,11 @@ router.post('/', async (req, res, next) => {
           quantity: product.quantity,
         });
       });
+
+      req.session.cart = {};
     })
-    .then(() => res.sendStatus(201))
+    .then(() => {
+      res.status(201).json(req.session.cart);
+    })
     .catch(next);
-
-  // var order = Order.build();
-  // await order1.setUser(req.session.id);
-
-  console.log('what is the charge', charge);
-
-  // res.status(201).json(charge);
 });
