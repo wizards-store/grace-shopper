@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 @font-face {
-  font-family: 'Harry-Potter';
-  src: url('./fonts/Harry-Potter.ttf.woff') format('woff'),
-    url('./fonts/Harry-Potter.ttf.svg#Harry-Potter') format('svg'),
-    url('./fonts/Harry-Potter.ttf.eot'),
-    url('./fonts/Harry-Potter.ttf.eot?#iefix') format('embedded-opentype');
+  font-family: "Harry-Potter";
+  src: url("./fonts/Harry-Potter.ttf.woff") format("woff"),
+    url("./fonts/Harry-Potter.ttf.svg#Harry-Potter") format("svg"),
+    url("./fonts/Harry-Potter.ttf.eot"),
+    url("./fonts/Harry-Potter.ttf.eot?#iefix") format("embedded-opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   padding-left: 8%;
   padding-right: 8%;
 }
@@ -28,10 +28,10 @@ nav a {
   margin: 1em;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
-}
+} */
 
 .navMenu {
   padding: 0;
@@ -45,7 +45,7 @@ form div {
 }
 
 .homeLogo {
-  font-family: 'Harry-Potter';
+  font-family: "Harry-Potter";
   font-size: 1.75em;
 }
 
