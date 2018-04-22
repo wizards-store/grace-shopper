@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Category = require('./Category');
 
 const Product = db.define(
   'product',
@@ -36,7 +37,7 @@ const Product = db.define(
   },
   {
     defaultScope: {
-      include: [{ model: 'category' }]
+      include: [{ model: Category }]
     }
   }
 );
