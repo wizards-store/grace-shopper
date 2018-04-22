@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
   const charge = await stripe.charges.create({
     amount: Number(total()),
     currency: 'usd',
-    description: '$5 for 5 credits',
+    description: 'wizard supply shop',
     source: req.body.id,
   });
 
