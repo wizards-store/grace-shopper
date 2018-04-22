@@ -27,9 +27,8 @@ const subtractSingleQuantity = singleCart => ({
   singleCart,
 });
 
-const postSinglePayment = singleCart => ({
-  type: POST_SINGLE_PAYMENT,
-  singleCart,
+const postSinglePayment = () => ({
+  type: POST_SINGLE_PAYMENT
 });
 
 export function postCart (product) {
@@ -78,7 +77,7 @@ export function postPayment (token) {
   return function (dispatch) {
     return axios
       .post(`/api/stripe`, token)
-      .then(res => dispatch(postSinglePayment(res.data)))
+      .then(res => dispatch(postSinglePayment()))
       .then(() => history.push('/success'))
       .catch(err => console.error(err));
   };
@@ -102,7 +101,7 @@ export default function cartReducer (state = {}, action) {
       return action.singleCart;
 
     case POST_SINGLE_PAYMENT:
-      return action.singleCart;
+      return {};
 
     default:
       return state;
