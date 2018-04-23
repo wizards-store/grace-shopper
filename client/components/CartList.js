@@ -10,46 +10,46 @@ class CartList extends Component {
   }
 
   render () {
-    const { handleClick, handleAddClick, handleSubtractClick } = this.props;
-    let cart = this.props.cart;
-
+    const { cart, handleClick, handleAddClick, handleSubtractClick } = this.props;
+    
     return (
       <div>
         {Object.keys(cart).length ? (
           <div>
             {Object.keys(cart).map(key => {
+              let product = cart[key];
               return (
-                <div key={cart[key].id}>
+                <div key={product.id}>
                   <Card>
-                    <Image src={cart[key].photo} />
+                    <Image src={product.photo} />
                     <Card.Content>
-                      <Button
-                        onClick={() => handleClick(cart[key])}
+                      <button
+                        onClick={() => handleClick(product)}
                         className="negative mini ui right floated button"
                       >
                         X
-                      </Button>
-                      <Card.Header>{cart[key].name}</Card.Header>
-                      <Card.Meta>{cart[key].createdAt}</Card.Meta>
+                      </button>
+                      <Card.Header>{product.name}</Card.Header>
+                      <Card.Meta>{product.createdAt}</Card.Meta>
                       <Card.Description>
-                        {cart[key].description}
+                        {product.description}
                       </Card.Description>
                     </Card.Content>
 
                     <Card.Content extra>
                       <a>
                         <Icon name="user" />
-                        {cart[key].quantity}
+                        {product.quantity}
                       </a>
                       <hr />
                       <Button
-                        onClick={() => handleSubtractClick(cart[key])}
+                        onClick={() => handleSubtractClick(product)}
                         color="red"
                       >
                         -
                       </Button>
                       <Button
-                        onClick={() => handleAddClick(cart[key])}
+                        onClick={() => handleAddClick(product)}
                         color="teal"
                       >
                         +
@@ -57,7 +57,7 @@ class CartList extends Component {
                       <hr />
                       <a>
                         <Icon name="user" />
-                        {cart[key].price * cart[key].quantity}
+                        {product.price * product.quantity}
                       </a>
                     </Card.Content>
                   </Card>
@@ -68,7 +68,7 @@ class CartList extends Component {
         ) : (
           <p>There is currently nothing in cart.</p>
         )}
-        <Payments cart={this.props.cart} />
+        <Payments cart={cart} />
       </div>
     );
   }
@@ -76,14 +76,15 @@ class CartList extends Component {
 
 function mapStateToProps (state) {
   return {
-    cart: state.cart,
+    cart: state.cart
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     getCart: () => dispatch(getCart()),
-    handleClick (product) {
+    // don't need "handleClick" for every dispatch function - can be named anything you want more descriptive
+    handleClick (product) { 
       dispatch(deleteProduct(product));
     },
     handleAddClick (product) {

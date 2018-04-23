@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
 import CartForm from './CartForm';
+import MenuSubMenu from './Menu';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 class AllProducts extends Component {
@@ -12,24 +13,33 @@ class AllProducts extends Component {
 
   render () {
     let products = this.props.products;
+    let categories = [];
+    Object.keys(products).forEach(key => {
+      let product = products[key];
+      if (!categories.indexOf(product.category)) {
+        categories.push(product.category);
+      }
+    });
 
     return (
       <React.Fragment>
+        <MenuSubMenu />
         {Object.keys(products).length ? (
           <div className="all-products">
             {Object.keys(products).map(key => {
+              let product = products[key];
               return (
-                <div key={products[key].id} className="single-product">
+                <div key={product.id} className="single-product">
                   <Card>
-                    <Image src={products[key].photo} />
+                    <Image src={product.photo} />
                     <Card.Content>
-                      <Link to={`/products/${products[key].id}`}>
-                        <h3>{products[key].name}</h3>
+                      <Link to={`/products/${product.id}`}>
+                        <h3>{product.name}</h3>
                       </Link>
                     </Card.Content>
                     <Card.Content extra>
-                      <p>{products[key].price}</p>
-                      <CartForm product={products[key]} />
+                      <p>{product.price}</p>
+                      <CartForm product={product} />
                     </Card.Content>
                   </Card>
                 </div>
@@ -47,13 +57,13 @@ class AllProducts extends Component {
 // Container
 function mapStateToProps (state) {
   return {
-    products: state.products,
+    products: state.products
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchAllProducts: () => dispatch(fetchAllProducts()),
+    fetchAllProducts: () => dispatch(fetchAllProducts())
   };
 }
 

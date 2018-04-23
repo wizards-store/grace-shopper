@@ -12,8 +12,7 @@ const Order_Product = require('./Order_Product');
 User.hasMany(Order);
 Order.belongsTo(User, {
   foreignKey: {
-    name: 'userId',
-    defaultValue: 1,
+    name: 'userId'
   },
 });
 
