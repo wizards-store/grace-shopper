@@ -37,7 +37,6 @@ router.post('/', async (req, res, next) => {
 
   await Order.create({
     total: charge.amount,
-    submissionDate: null,
     sessionId: req.session.id,
   })
     .then(newOrder => {
