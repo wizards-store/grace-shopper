@@ -3,31 +3,75 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
 import CartForm from './CartForm';
-import MenuSubMenu from './Menu';
+import Sidebar from './Sidebar';
 import { Card, Icon, Image } from 'semantic-ui-react';
+import { createFilter } from 'react-search-input';
 
 class AllProducts extends Component {
+  constructor () {
+    super();
+    this.state = {
+      searchTerm: '',
+      filteredCategories: []
+    };
+
+    this.searchUpdated = this.searchUpdated.bind(this);
+    this.filterUpdated = this.filterUpdated.bind(this);
+  }
+
   componentDidMount () {
     this.props.fetchAllProducts();
+  }
+
+  searchUpdated (event) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
+  filterUpdated (event, data) {
+    data.checked
+      ? this.setState({
+          filteredCategories: [...this.state.filteredCategories, data.label]
+        })
+      : this.setState({
+          filteredCategories: this.state.filteredCategories.filter(
+            name => name !== data.label
+          )
+        });
   }
 
   render () {
     let products = this.props.products;
     let categories = [];
-    Object.keys(products).forEach(key => {
-      let product = products[key];
-      if (!categories.indexOf(product.category)) {
-        categories.push(product.category);
-      }
+
+    Object.values(products).forEach(product => {
+      product.categories.forEach(category => {
+        if (!categories.includes(category.name)) {
+          categories.push(category.name);
+        }
+      });
     });
+
+    const filteredProducts = Object.values(products)
+      .filter(createFilter(this.state.searchTerm, ['name']))
+      .filter(filteredProduct => {
+        return this.state.filteredCategories.length
+          ? filteredProduct.categories.filter(category =>
+              this.state.filteredCategories.includes(category.name)
+            ).length
+          : filteredProduct;
+      });
 
     return (
       <React.Fragment>
-        <MenuSubMenu />
+        <Sidebar
+          categories={categories}
+          onChange={this.searchUpdated}
+          onFilterClick={this.filterUpdated}
+        />
+
         {Object.keys(products).length ? (
           <div className="all-products">
-            {Object.keys(products).map(key => {
-              let product = products[key];
+            {filteredProducts.map(product => {
               return (
                 <div key={product.id} className="single-product">
                   <Card>
