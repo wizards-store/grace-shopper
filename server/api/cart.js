@@ -1,5 +1,10 @@
 const router = require('express').Router();
 module.exports = router;
+const models = require('../db/models');
+const Product = models.Product;
+const Order = models.Order;
+const Order_Product = models.Order_Product;
+const Sequelize = require('sequelize');
 
 // GET /cart
 router.get('/', (req, res, next) => {
@@ -7,16 +12,53 @@ router.get('/', (req, res, next) => {
 });
 
 // POST /cart
-router.post('/', (req, res, next) => {
-  const productToAdd = req.body;
+router.post('/', async (req, res, next) => {
+  const productToAdd = req.body; // the product to add to cart
 
-  if (!req.session.cart[productToAdd.id]) {
-    req.session.cart[productToAdd.id] = productToAdd;
-    req.session.cart[productToAdd.id].quantity = Number(1);
-    res.status(201).json(req.session.cart[productToAdd.id]);
+  if (req.user) {
+    await Order.find({
+      where: {
+        userId: req.user.dataValues.id,
+        isCheckedOut: false,
+      },
+    })
+      .then(order => {
+        console.log('what is order', order);
+        if (order) {
+          return Order_Product.find({
+            where: {
+              orderId: order.id,
+              productId: productToAdd.id,
+            },
+          }).then(orderProduct => {
+            orderProduct.update({
+              quantity: orderProduct.quantity++,
+            });
+          });
+        } else {
+          Order.create({
+            total: productToAdd.price,
+            userId: req.user.dataValues.id,
+          })
+            .then(createdOrder => createdOrder.addProduct(productToAdd.id))
+            .then(finalOrder => res.send(finalOrder));
+        }
+      })
+      .catch(next);
   } else {
-    req.session.cart[productToAdd.id].quantity += 1;
-    res.status(201).json(req.session.cart[productToAdd.id]);
+    // if the user is not logged in
+    if (!req.session.cart[productToAdd.id]) {
+      req.session.cart[productToAdd.id] = productToAdd;
+      req.session.cart[productToAdd.id].quantity = Number(1);
+      console.log(
+        'what is productToAdd in guest user',
+        req.session.cart[productToAdd.id]
+      );
+      res.status(201).json(req.session.cart[productToAdd.id]);
+    } else {
+      req.session.cart[productToAdd.id].quantity += 1;
+      res.status(201).json(req.session.cart[productToAdd.id]);
+    }
   }
 });
 

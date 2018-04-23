@@ -31,16 +31,18 @@ router.post('/', async (req, res, next) => {
 
   // [{id: 1, name: 'hehe', ..}, {id: 2, ...}]
   const arrayOfProducts = Object.values(req.session.cart);
-  const productObj = arrayOfProducts.map(filterObj => {
+  const productArr = arrayOfProducts.map(filterObj => {
     return _.pickBy(filterObj, predicate);
   });
 
   await Order.create({
     total: charge.amount,
     sessionId: req.session.id,
+    isCheckedOut: true,
   })
     .then(newOrder => {
-      productObj.forEach(product => {
+      // newOrder.addProducts(productArr)
+      productArr.forEach(product => {
         Product.update(
           { inventory: Sequelize.literal(`inventory - ${product.quantity}`) },
           {
