@@ -10,13 +10,23 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     {/*<h1>Wizard Supply Shop</h1>*/}
     <nav>
       {isLoggedIn ? (
-        <div>
+        <ul className="navMenu">
           {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
+          <li className="homeLogo">
+            <Link to="/">Wizard Supply Shop</Link>
+          </li>
+          <li>
+            <Link to="/products">Products</Link>
+          </li>
+          <li>
+            <Link to="/cartList">Cart</Link>
+          </li>
+          <li>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </li>
+        </ul>
       ) : (
         <ul className="navMenu">
           {/* The navbar will show these links before you log in */}

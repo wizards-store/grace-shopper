@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import { postPayment } from '../store';
-// import stripePublishableKey from '.../secrets';
 
 class Payments extends Component {
   total = () => {
