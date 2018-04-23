@@ -10,24 +10,44 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const {User} = require('../server/db/models');
+const { User } = require('../server/db/models');
 const { Product } = require('../server/db/models');
 
 async function seed () {
-  await db.sync({force: true});
+  await db.sync({ force: true });
   console.log('db synced!');
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({ email: 'guest@guest.com', password: 'null' }),
+    User.create({ email: 'cody@email.com', password: '123' }),
+    User.create({ email: 'murphy@email.com', password: '123' }),
   ]);
 
   const products = await Promise.all([
-    Product.create({name: 'Elder Wand', price: 199.99, description: 'This is the greatest wand of all time', inventory: 5, photo: 'https://images-na.ssl-images-amazon.com/images/I/21b6ifv0QlL._SY355_.jpg'}),
-    Product.create({name: 'Nimbus 2000', price: 699.99, description: 'This is the greatest broomstick of all time', inventory: 3, photo: 'https://vignette.wikia.nocookie.net/harrypotter/images/0/0f/Nimbus_2000_1.jpg/revision/latest?cb=20150530185551'}),
-    Product.create({name: 'Mystery Object', price: 10, description: '???', inventory: 1})
+    Product.create({
+      name: 'Elder Wand',
+      price: 199.99,
+      description: 'This is the greatest wand of all time',
+      inventory: 500,
+      photo:
+        'https://images-na.ssl-images-amazon.com/images/I/21b6ifv0QlL._SY355_.jpg',
+    }),
+    Product.create({
+      name: 'Nimbus 2000',
+      price: 699.99,
+      description: 'This is the greatest broomstick of all time',
+      inventory: 300,
+      photo:
+        'https://vignette.wikia.nocookie.net/harrypotter/images/0/0f/Nimbus_2000_1.jpg/revision/latest?cb=20150530185551',
+    }),
+    Product.create({
+      name: 'Mystery Object',
+      price: 10,
+      description: '???',
+      inventory: 100,
+    }),
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!

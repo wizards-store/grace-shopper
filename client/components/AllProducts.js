@@ -26,18 +26,19 @@ class AllProducts extends Component {
         {Object.keys(products).length ? (
           <div className="all-products">
             {Object.keys(products).map(key => {
+              let product = products[key];
               return (
-                <div key={products[key].id} className="single-product">
+                <div key={product.id} className="single-product">
                   <Card>
-                    <Image src={products[key].photo} />
+                    <Image src={product.photo} />
                     <Card.Content>
-                      <Link to={`/products/${products[key].id}`}>
-                        <h3>{products[key].name}</h3>
+                      <Link to={`/products/${product.id}`}>
+                        <h3>{product.name}</h3>
                       </Link>
                     </Card.Content>
                     <Card.Content extra>
-                      <p>{products[key].price}</p>
-                      <CartForm product={products[key]} />
+                      <p>{product.price}</p>
+                      <CartForm product={product} />
                     </Card.Content>
                   </Card>
                 </div>
