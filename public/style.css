@@ -18,8 +18,8 @@ body {
   overflow: hidden; */
   background-color: black;
   font-family: "Source Sans Pro", sans-serif;
-  padding-left: 8%;
-  padding-right: 8%;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 a {

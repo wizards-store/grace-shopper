@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
 import CartForm from './CartForm';
+import MenuSubMenu from './Menu';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 class AllProducts extends Component {
@@ -12,39 +13,42 @@ class AllProducts extends Component {
 
   render () {
     let products = this.props.products;
+    let categories = [];
+    products.forEach(product => {
+      if (!categories.indexOf(product.category)) {
+        categories.push(product.category);
+      }
+    });
 
     return (
-      <div className="allProduct-background">
-        <React.Fragment>
-          {Object.keys(products).length ? (
-            <div className="all-products">
-              {Object.keys(products).map(key => {
-                return (
-                  <div key={products[key].id} className="single-product">
-                    <Card>
-                      <Image
-                        src={products[key].photo}
-                        className="product-picture"
-                      />
-                      <Card.Content>
-                        <Link to={`/products/${products[key].id}`}>
-                          <h3>{products[key].name}</h3>
-                        </Link>
-                      </Card.Content>
-                      <Card.Content extra>
-                        <p>{products[key].price}</p>
-                        <CartForm product={products[key]} />
-                      </Card.Content>
-                    </Card>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <p>There are currently no products for sale.</p>
-          )}
-        </React.Fragment>
-      </div>
+      <React.Fragment>
+        <MenuSubMenu />
+        {Object.keys(products).length ? (
+          <div className="all-products">
+            {Object.keys(products).map(key => {
+              let product = products[key];
+              return (
+                <div key={product.id} className="single-product">
+                  <Card>
+                    <Image src={product.photo} />
+                    <Card.Content>
+                      <Link to={`/products/${product.id}`}>
+                        <h3>{product.name}</h3>
+                      </Link>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <p>{product.price}</p>
+                      <CartForm product={product} />
+                    </Card.Content>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p>There are currently no products for sale.</p>
+        )}
+      </React.Fragment>
     );
   }
 }
