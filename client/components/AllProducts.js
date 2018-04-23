@@ -31,7 +31,7 @@ class AllProducts extends Component {
               return (
                 <div key={product.id} className="single-product">
                   <Card>
-                    <Image src={product.photo} />
+                    <Image src={product.photo} className="product-picture" />
                     <Card.Content>
                       <Link to={`/products/${product.id}`}>
                         <h3>{product.name}</h3>
