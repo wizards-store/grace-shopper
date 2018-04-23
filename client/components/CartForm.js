@@ -5,9 +5,6 @@ import { postCart } from '../store';
 
 const CartForm = props => {
   const { product, handleSubmit, user } = props;
-  {
-    console.log('what is this.props?', props);
-  }
 
   return (
     <Form onSubmit={evt => handleSubmit(product, evt)}>
