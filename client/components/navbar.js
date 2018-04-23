@@ -18,23 +18,26 @@ class Navbar extends React.Component {
       <div>
         <Menu secondary className="navMenu">
           <Menu.Item
-            href="/"
+            as={Link}
+            to="/"
             name="Wizard Supply Shop"
             className="homeLogo"
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
           />
           <Menu.Item
-            href="/products"
+            as={Link}
+            to="/products"
             name="Products"
-            active={activeItem === 'messages'}
+            active={activeItem === 'products'}
             onClick={this.handleItemClick}
           />
         <Menu.Menu position="right">
             <Menu.Item
-              href="/cartList"
+              as={Link}
+              to="/cartList"
               name="Cart"
-              active={activeItem === 'friends'}
+              active={activeItem === 'cart'}
               onClick={this.handleItemClick}
             />
           {this.props.isLoggedIn ? (
@@ -46,13 +49,15 @@ class Navbar extends React.Component {
             ) : (
               <React.Fragment>
                 <Menu.Item
-                  href="/login"
+                  as={Link}
+                  to="/login"
                   name="login"
                   active={activeItem === 'login'}
                   onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                  href="/signup"
+                  as={Link}
+                  to="/signup"
                   name="signup"
                   active={activeItem === 'signup'}
                   onClick={this.handleItemClick}
