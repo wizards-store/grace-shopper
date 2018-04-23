@@ -2,6 +2,9 @@ const router = require('express').Router();
 const {User} = require('../db/models');
 module.exports = router;
 
+// AP: TODO- put gatekeeperMiddleware in a `utils` module to be used here and elsewhere
+//     should be on most of your routes on the backend
+
 router.get('/', (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though

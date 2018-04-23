@@ -1,44 +1,24 @@
 import React, { Component } from 'react';
 import { Dropdown, Icon, Input, Menu, Checkbox } from 'semantic-ui-react';
-import { DataSearch } from '@appbaseio/reactivesearch';
+import SearchInput from 'react-search-input';
 
-export default class Sidebar extends Component {
-  state = {};
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+const Sidebar = props => (
+  <Menu vertical floated>
+      <Menu.Item>
+          <Input placeholder="Search..." onChange={props.onChange} />
+      </Menu.Item>
 
-  render () {
-    const { activeItem } = this.state;
+      {props.categories.map(category => {
+        return (
+          <React.Fragment key={category.id}>
+            <Checkbox className="checkbox" label={category.name} onFilterClick={props.onFilterClick} />
+            <br />
+          </React.Fragment>
+        );
+      })}
+  </Menu>
+);
 
-    console.log('categories', this.props.categories);
 
-    return (
-      <Menu vertical floated>
-          <Menu.Item>
-              <DataSearch
-                componentId="productSearch"
-                dataField={'name'}
-                queryFormat="and" />
-            {/*<Input placeholder="Search..." />*/}
-          </Menu.Item>
-
-          {this.props.categories.map(category => {
-            return (
-              <React.Fragment key={category.id}>
-                <Checkbox className="checkbox" label={category.name} />
-                <br />
-              </React.Fragment>
-            );
-          })}
-
-        {/*<Dropdown item text="More">
-          <Dropdown.Menu>
-            <Dropdown.Item icon="edit" text="Edit Profile" />
-            <Dropdown.Item icon="globe" text="Choose Language" />
-            <Dropdown.Item icon="settings" text="Account Settings" />
-          </Dropdown.Menu>
-        </Dropdown>*/}
-      </Menu>
-    );
-  }
-}
+export default Sidebar;

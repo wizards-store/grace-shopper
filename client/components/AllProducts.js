@@ -5,11 +5,29 @@ import { fetchAllProducts } from '../store';
 import CartForm from './CartForm';
 import Sidebar from './Sidebar';
 import { Card, Icon, Image } from 'semantic-ui-react';
-import { ReactiveBase } from '@appbaseio/reactivesearch';
+import { createFilter } from 'react-search-input';
 
 class AllProducts extends Component {
+  constructor () {
+    super();
+    this.state = {
+      searchTerm: '',
+      filteredCategories: []
+    };
+
+    this.searchUpdated = this.searchUpdated.bind(this);
+  }
+
   componentDidMount () {
     this.props.fetchAllProducts();
+  }
+
+  searchUpdated (event) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
+  filterUpdated (event) {
+    this.setState({ filteredCategories: [...this.filteredCategories, event.target.label] })
   }
 
   render () {
@@ -23,17 +41,15 @@ class AllProducts extends Component {
         }
       });
     });
-    console.log('products', products);
+
+    const filteredProducts = Object.values(products).filter(createFilter(this.state.searchTerm, ['name']));
 
     return (
       <React.Fragment>
-        <ReactiveBase app="wizard-store" credentials="none">
-          <Sidebar categories={categories} />
-        </ReactiveBase>
+        <Sidebar categories={categories} onChange={this.searchUpdated} onFilterClick={this.filterUpdated}/>
         {Object.keys(products).length ? (
           <div className="all-products">
-            {Object.keys(products).map(key => {
-              let product = products[key];
+            {filteredProducts.map(product => {
               return (
                 <div key={product.id} className="single-product">
                   <Card>
