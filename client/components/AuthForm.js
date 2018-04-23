@@ -2,7 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import {
+  Checkbox,
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment,
+  Icon
+} from 'semantic-ui-react';
 
 /**
  * COMPONENT
@@ -11,26 +21,55 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit} name={name}>
-        <Form.Field>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </Form.Field>
-        <Form.Field>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </Form.Field>
-        <Form.Field>
-          <Button type="submit">{displayName}</Button>
-        </Form.Field>
-        {error && error.response && <div> {error.response.data} </div>}
-      </Form>
-      <a href="/auth/google">{displayName} with Google</a>
+    <div className="login-form">
+      <style>{`
+    body > div,
+    body > div > div,
+    body > div > div > div.login-form {
+      height: 100%;
+    }
+  `}</style>
+      <Grid
+        textAlign="center"
+        style={{ height: '100%' }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="teal" textAlign="center">
+            <Icon circular inverted color="teal" name="users" /> Log-in to your
+            account
+          </Header>
+
+          <Form size="large" onSubmit={handleSubmit} name={name}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="E-mail address"
+                name="email"
+                type="text"
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                name="password"
+                type="password"
+              />
+              <Button color="teal" fluid size="large" type="submit">
+                {displayName}
+              </Button>
+            </Segment>
+            {error && error.response && <div> {error.response.data} </div>}
+          </Form>
+          <Message>
+            New to us? <a href="#">Sign Up</a>
+          </Message>
+          <a href="/auth/google">{displayName} with Google</a>
+        </Grid.Column>
+      </Grid>
     </div>
   );
 };
