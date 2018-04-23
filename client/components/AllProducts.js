@@ -14,32 +14,37 @@ class AllProducts extends Component {
     let products = this.props.products;
 
     return (
-      <React.Fragment>
-        {Object.keys(products).length ? (
-          <div className="all-products">
-            {Object.keys(products).map(key => {
-              return (
-                <div key={products[key].id} className="single-product">
-                  <Card>
-                    <Image src={products[key].photo} />
-                    <Card.Content>
-                      <Link to={`/products/${products[key].id}`}>
-                        <h3>{products[key].name}</h3>
-                      </Link>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <p>{products[key].price}</p>
-                      <CartForm product={products[key]} />
-                    </Card.Content>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <p>There are currently no products for sale.</p>
-        )}
-      </React.Fragment>
+      <div className="allProduct-background">
+        <React.Fragment>
+          {Object.keys(products).length ? (
+            <div className="all-products">
+              {Object.keys(products).map(key => {
+                return (
+                  <div key={products[key].id} className="single-product">
+                    <Card>
+                      <Image
+                        src={products[key].photo}
+                        className="product-picture"
+                      />
+                      <Card.Content>
+                        <Link to={`/products/${products[key].id}`}>
+                          <h3>{products[key].name}</h3>
+                        </Link>
+                      </Card.Content>
+                      <Card.Content extra>
+                        <p>{products[key].price}</p>
+                        <CartForm product={products[key]} />
+                      </Card.Content>
+                    </Card>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p>There are currently no products for sale.</p>
+          )}
+        </React.Fragment>
+      </div>
     );
   }
 }
@@ -47,13 +52,13 @@ class AllProducts extends Component {
 // Container
 function mapStateToProps (state) {
   return {
-    products: state.products,
+    products: state.products
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchAllProducts: () => dispatch(fetchAllProducts()),
+    fetchAllProducts: () => dispatch(fetchAllProducts())
   };
 }
 

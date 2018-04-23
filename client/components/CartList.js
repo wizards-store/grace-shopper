@@ -23,12 +23,12 @@ class CartList extends Component {
                   <Card>
                     <Image src={product.photo} />
                     <Card.Content>
-                      <Button
+                      <button
                         onClick={() => handleClick(product)}
                         className="negative mini ui right floated button"
                       >
                         X
-                      </Button>
+                      </button>
                       <Card.Header>{product.name}</Card.Header>
                       <Card.Meta>{product.createdAt}</Card.Meta>
                       <Card.Description>
@@ -76,7 +76,7 @@ class CartList extends Component {
 
 function mapStateToProps (state) {
   return {
-    cart: state.cart,
+    cart: state.cart
   };
 }
 
