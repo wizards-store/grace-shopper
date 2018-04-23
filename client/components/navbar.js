@@ -17,51 +17,46 @@ class Navbar extends React.Component {
     return (
       <div>
         <Menu secondary className="navMenu">
-          <Link to="/">
+          <Menu.Item
+            href="/"
+            name="Wizard Supply Shop"
+            className="homeLogo"
+            active={activeItem === 'home'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            href="/products"
+            name="Products"
+            active={activeItem === 'messages'}
+            onClick={this.handleItemClick}
+          />
+        <Menu.Menu position="right">
             <Menu.Item
-              name="Wizard Supply Shop"
-              className="homeLogo"
-              active={activeItem === 'home'}
+              href="/cartList"
+              name="Cart"
+              active={activeItem === 'friends'}
               onClick={this.handleItemClick}
             />
-          </Link>
-          <Link to="/products">
+          {this.props.isLoggedIn ? (
             <Menu.Item
-              name="Products"
-              active={activeItem === 'messages'}
-              onClick={this.handleItemClick}
+              name="logout"
+              active={activeItem === 'logout'}
+              onClick={this.props.handleClick}
             />
-          </Link>
-          <Menu.Menu position="right">
-            <Link to="/cartList">
-              <Menu.Item
-                name="Cart"
-                active={activeItem === 'friends'}
-                onClick={this.handleItemClick}
-              />
-            </Link>
-            {this.props.isLoggedIn ? (
-              <Menu.Item
-                name="logout"
-                active={activeItem === 'logout'}
-                onClick={this.props.handleClick}
-              />
             ) : (
               <React.Fragment>
-                <Link to="/login">
-                  <Menu.Item
-                    name="login"
-                    active={activeItem === 'login'}
-                    onClick={this.handleItemClick}
-                  />
-                </Link>
-                <Link to="/signup">
-                  <Menu.Item
-                    name="signup"
-                    active={activeItem === 'signup'}
-                    onClick={this.handleItemClick}
-                  />
-                </Link>
+                <Menu.Item
+                  href="/login"
+                  name="login"
+                  active={activeItem === 'login'}
+                  onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                  href="/signup"
+                  name="signup"
+                  active={activeItem === 'signup'}
+                  onClick={this.handleItemClick}
+                />
               </React.Fragment>
             )}
           </Menu.Menu>
