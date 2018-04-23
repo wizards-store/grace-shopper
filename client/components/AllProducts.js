@@ -16,6 +16,7 @@ class AllProducts extends Component {
     };
 
     this.searchUpdated = this.searchUpdated.bind(this);
+    this.filterUpdated = this.filterUpdated.bind(this);
   }
 
   componentDidMount () {
@@ -26,8 +27,17 @@ class AllProducts extends Component {
     this.setState({ searchTerm: event.target.value });
   }
 
-  filterUpdated (event) {
-    this.setState({ filteredCategories: [...this.filteredCategories, event.target.label] })
+  filterUpdated (event, data) {
+    data.checked
+      ? this.setState({
+          filteredCategories: [...this.state.filteredCategories, data.label]
+        })
+      : this.setState({
+          filteredCategories: this.state.filteredCategories.filter(
+            name => name !== data.label
+          )
+        });
+    console.log('state:', this.state);
   }
 
   render () {
@@ -42,11 +52,24 @@ class AllProducts extends Component {
       });
     });
 
-    const filteredProducts = Object.values(products).filter(createFilter(this.state.searchTerm, ['name']));
+    const filteredProducts = Object.values(products)
+      .filter(createFilter(this.state.searchTerm, ['name']))
+      .filter(filteredProduct => {
+        return this.state.filteredCategories.length
+          ? filteredProduct.categories.filter(category =>
+              this.state.filteredCategories.includes(category.name)
+            ).length
+          : filteredProduct;
+      });
 
     return (
       <React.Fragment>
-        <Sidebar categories={categories} onChange={this.searchUpdated} onFilterClick={this.filterUpdated}/>
+        <Sidebar
+          categories={categories}
+          onChange={this.searchUpdated}
+          onFilterClick={this.filterUpdated}
+        />
+
         {Object.keys(products).length ? (
           <div className="all-products">
             {filteredProducts.map(product => {
