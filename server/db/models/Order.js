@@ -11,10 +11,13 @@ const Order = db.define('order', {
   },
   submissionDate: {
     type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW,
   },
   sessionId: {
     type: Sequelize.STRING,
+  },
+  isCheckedOut: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 
