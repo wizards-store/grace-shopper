@@ -10,4 +10,5 @@ export { default as GeneralHome } from './GeneralHome';
 export { default as UserHome } from './user-home';
 export { default as CartForm } from './CartForm';
 export { default as CartList } from './CartList';
+export { default as OrderSuccess } from './OrderSuccess';
 export { Login, Signup } from './AuthForm';
