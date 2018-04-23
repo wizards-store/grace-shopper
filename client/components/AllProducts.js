@@ -37,7 +37,6 @@ class AllProducts extends Component {
             name => name !== data.label
           )
         });
-    console.log('state:', this.state);
   }
 
   render () {
