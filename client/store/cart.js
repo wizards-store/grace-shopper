@@ -7,6 +7,10 @@ const DELETE_SINGLE_PRODUCT = 'DELETE_SINGLE_PRODUCT';
 const SUBTRACT_SINGLE_QUANTITY = 'SUBTRACT_SINGLE_QUANTITY';
 const POST_SINGLE_PAYMENT = 'POST_SINGLE_PAYMENT';
 
+// all these action creators are actually doing the same thing
+// could make single product cart actions more performant (by only using the ID)
+// action creators don't specify all the possible actions a user can take, they specify all the ways state can change
+
 const postSingleCart = singleProduct => ({
   type: POST_SINGLE_CART,
   singleProduct,
@@ -77,6 +81,7 @@ export function postPayment (token) {
   };
 }
 
+// ideally we would handle different single product operations differently - technically don't have to be sending back the entire cart object from the backend
 export default function cartReducer (state = {}, action) {
   switch (action.type) {
     case POST_SINGLE_CART:

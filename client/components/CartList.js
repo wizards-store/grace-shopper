@@ -11,7 +11,7 @@ class CartList extends Component {
 
   render () {
     const { cart, handleClick, handleAddClick, handleSubtractClick } = this.props;
-    
+
     return (
       <div>
         {Object.keys(cart).length ? (
@@ -84,7 +84,7 @@ function mapDispatchToProps (dispatch) {
   return {
     getCart: () => dispatch(getCart()),
     // don't need "handleClick" for every dispatch function - can be named anything you want more descriptive
-    handleClick (product) { 
+    handleClick (product) {
       dispatch(deleteProduct(product));
     },
     handleAddClick (product) {
@@ -96,8 +96,25 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
+const mapDispatchToProps = {
+  getCart,
+  deleteProduct,
+  postCart,
+  subtractQuantity
+}
+
 const CartListContainer = connect(mapStateToProps, mapDispatchToProps)(
   CartList
 );
+
+// const CartListContainer = connect(
+//   mapStateToProps,
+//   {
+//   getCart,
+//   deleteProduct,
+//   postCart,
+//   subtractQuantity
+//   }
+//)(CartList);
 
 export default CartListContainer;

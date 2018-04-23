@@ -12,8 +12,10 @@ class AllProducts extends Component {
   }
 
   render () {
+    // const { products, handleSubmit } = this.props;
     let products = this.props.products;
     let categories = [];
+    // use Object.values and Array.prototype.filter
     Object.keys(products).forEach(key => {
       let product = products[key];
       if (!categories.indexOf(product.category)) {
@@ -21,12 +23,14 @@ class AllProducts extends Component {
       }
     });
 
+    // consider modularizing single product card - makes lives much easier for testing
     return (
       <React.Fragment>
         <MenuSubMenu />
         {Object.keys(products).length ? (
           <div className="all-products">
             {Object.keys(products).map(key => {
+              // const { id, photo, name, price } = products[key]
               let product = products[key];
               return (
                 <div key={product.id} className="single-product">

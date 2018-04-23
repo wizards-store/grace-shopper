@@ -3,7 +3,10 @@ import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import { postPayment } from '../store';
 
+// can define total off the Payments class
+
 class Payments extends Component {
+  // setting equality as a prototypical property is not standard in JS specs yet (but prob will be)
   total = () => {
     const cart = this.props.cart;
     let sum = 0;
@@ -42,5 +45,8 @@ function mapDispatchToProps (dispatch) {
 }
 
 const PaymentsContainer = connect(null, mapDispatchToProps)(Payments);
+
+// const PaymentsContainer = connect(null, { postPayment })(Payments);
+
 
 export default PaymentsContainer;

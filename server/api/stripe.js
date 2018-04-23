@@ -18,12 +18,16 @@ router.post('/', async (req, res, next) => {
     return sum * 100;
   };
 
+  // define total as a pure function (takes cart as input, returns a number which is the total)
   const charge = await stripe.charges.create({
     amount: Number(total()),
     currency: 'usd',
     description: 'wizard supply shop',
     source: req.body.id,
   });
+
+  // don't forget to catch errors!
+  // maybe you leave the catching of errors as a try, catch statement
 
   const predicate = (value, key) => {
     return key.startsWith('id') || key.startsWith('quantity');
@@ -39,6 +43,8 @@ router.post('/', async (req, res, next) => {
     total: charge.amount,
     sessionId: req.session.id,
   })
+
+  // do the math before updating inventory
     .then(newOrder => {
       productObj.forEach(product => {
         Product.update(

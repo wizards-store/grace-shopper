@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Button, Form } from 'semantic-ui-react';
 import { postCart } from '../store';
 
+
+// const CartForm = ({ product, handleSubmit }) => {...}
 const CartForm = props => {
   const { product, handleSubmit } = props;
 
@@ -15,6 +17,7 @@ const CartForm = props => {
   );
 };
 
+// consider making this component 100% dumb, and presentational only, and passing this dispatch in through props from the component that rendered it
 function mapDispatchToProps (dispatch) {
   return {
     handleSubmit (product, evt) {

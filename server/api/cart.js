@@ -7,6 +7,8 @@ router.get('/', (req, res, next) => {
 });
 
 // POST /cart
+// consider sending the bare minimum in terms of the product id
+// { productId: quantity }
 router.post('/', (req, res, next) => {
   const productToAdd = req.body;
 
@@ -24,10 +26,14 @@ router.post('/', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   const productToDelete = req.params.id;
   delete req.session.cart[productToDelete];
+  // 204 means no content to send back - so don't actually send content back!
+  // remove the `.json` part or send a 200 status
   res.status(204).json(req.session.cart);
 });
 
 // POST / cart subtract
+// better to use a put request here (and update the cart) instead of adding a negative value - stay RESTful - rule of thumb: shouldn't need to use verbs in your URI's
+
 router.post('/subtract', (req, res, next) => {
   const productToDelete = req.body;
 
