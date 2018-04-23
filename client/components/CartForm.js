@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import { postCart } from '../store';
 
 const CartForm = props => {
@@ -16,13 +16,9 @@ const CartForm = props => {
 };
 
 function mapDispatchToProps (dispatch) {
-  // const product = this.props;
-  // console.log('what is product', product);
-
   return {
     handleSubmit (product, evt) {
       evt.preventDefault();
-      // console.log('its working', product);
       dispatch(postCart(product));
     },
   };

@@ -4,49 +4,74 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 import CartList from './CartList';
+import { Menu } from 'semantic-ui-react';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    {/*<h1>Wizard Supply Shop</h1>*/}
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <ul className="navMenu">
-          {/* The navbar will show these links before you log in */}
-          <li className="homeLogo">
-            <Link to="/">Wizard Supply Shop</Link>
-          </li>
-          <li>
-            <Link to="/products">Products</Link>
-          </li>
-          <li>
-            <Link to="/cartList">Cart</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-        </ul>
-      )}
-    </nav>
-  </div>
-);
+class Navbar extends React.Component {
+  state = { activeItem: 'home' };
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  render () {
+    const { activeItem } = this.state;
+
+    return (
+      <div>
+        <Menu secondary className="navMenu">
+          <Menu.Item
+            href="/"
+            name="Wizard Supply Shop"
+            className="homeLogo"
+            active={activeItem === 'home'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            href="/products"
+            name="Products"
+            active={activeItem === 'messages'}
+            onClick={this.handleItemClick}
+          />
+        <Menu.Menu position="right">
+            <Menu.Item
+              href="/cartList"
+              name="Cart"
+              active={activeItem === 'friends'}
+              onClick={this.handleItemClick}
+            />
+          {this.props.isLoggedIn ? (
+            <Menu.Item
+              name="logout"
+              active={activeItem === 'logout'}
+              onClick={this.props.handleClick}
+            />
+            ) : (
+              <React.Fragment>
+                <Menu.Item
+                  href="/login"
+                  name="login"
+                  active={activeItem === 'login'}
+                  onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                  href="/signup"
+                  name="signup"
+                  active={activeItem === 'signup'}
+                  onClick={this.handleItemClick}
+                />
+              </React.Fragment>
+            )}
+          </Menu.Menu>
+        </Menu>
+      </div>
+    );
+  }
+}
 
 /**
  * CONTAINER
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
   };
 };
 
@@ -54,7 +79,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick () {
       dispatch(logout());
-    },
+    }
   };
 };
 
@@ -65,5 +90,5 @@ export default connect(mapState, mapDispatch)(Navbar);
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };

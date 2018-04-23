@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
-// import stripePublishableKey from '.../secrets';
+import { connect } from 'react-redux';
+import { postPayment } from '../store';
 
 class Payments extends Component {
   total = () => {
@@ -13,13 +14,18 @@ class Payments extends Component {
   };
 
   render () {
+    const { handleToken } = this.props;
+
     return (
       <StripeCheckout
         name="Wizard Supply Shop"
         description="Thanks for coming by!"
-        amount={this.total()} // this should be dynamic based on amount in cart - this is in cents -> 5 dollar here
-        token={token => console.log(token)}
+        amount={this.total()}
+        token={token => handleToken(token)}
         stripeKey="pk_test_tFYxJxufub7z64MriHlPVwy3"
+        allowRememberMe={false}
+        shippingAddress={true}
+        billingAddress={true}
       >
         <button className="positive ui button">Checkout</button>
       </StripeCheckout>
@@ -27,4 +33,14 @@ class Payments extends Component {
   }
 }
 
-export default Payments;
+function mapDispatchToProps (dispatch) {
+  return {
+    handleToken (token) {
+      dispatch(postPayment(token));
+    },
+  };
+}
+
+const PaymentsContainer = connect(null, mapDispatchToProps)(Payments);
+
+export default PaymentsContainer;
