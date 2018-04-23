@@ -14,7 +14,8 @@ class AllProducts extends Component {
   render () {
     let products = this.props.products;
     let categories = [];
-    products.forEach(product => {
+    Object.keys(products).forEach(key => {
+      let product = products[key];
       if (!categories.indexOf(product.category)) {
         categories.push(product.category);
       }
