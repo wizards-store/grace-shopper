@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
 import CartForm from './CartForm';
-import MenuSubMenu from './Menu';
+import Sidebar from './Sidebar';
 import { Card, Icon, Image } from 'semantic-ui-react';
+import { ReactiveBase } from '@appbaseio/reactivesearch';
 
 class AllProducts extends Component {
   componentDidMount () {
@@ -16,14 +17,19 @@ class AllProducts extends Component {
     let categories = [];
     Object.keys(products).forEach(key => {
       let product = products[key];
-      if (!categories.indexOf(product.category)) {
-        categories.push(product.category);
-      }
+      product.categories.forEach(category => {
+        if (!categories.includes(category)) {
+          categories.push(category);
+        }
+      });
     });
+    console.log('products', products);
 
     return (
       <React.Fragment>
-        <MenuSubMenu />
+        <ReactiveBase app="wizard-store" credentials="none">
+          <Sidebar categories={categories} />
+        </ReactiveBase>
         {Object.keys(products).length ? (
           <div className="all-products">
             {Object.keys(products).map(key => {
