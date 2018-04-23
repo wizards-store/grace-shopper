@@ -22,22 +22,40 @@ async function seed () {
   const users = await Promise.all([
     User.create({ email: 'guest@guest.com', password: 'null' }),
     User.create({ email: 'cody@email.com', password: '123' }),
-    User.create({ email: 'murphy@email.com', password: '123' }),
+    User.create({ email: 'murphy@email.com', password: '123' })
   ]);
 
   const categories = await Promise.all([
     Category.create({ name: 'Broom' }),
     Category.create({ name: 'Wand' }),
     Category.create({ name: 'Misc' }),
+    Category.create({ name: 'Wooden' }),
+    Category.create({ name: 'Magical' })
   ]);
 
   const products = await Promise.all([
-    Product.create({name: 'Elder Wand', price: 199.99, description: 'This is the greatest wand of all time', inventory: 5, photo: 'https://images-na.ssl-images-amazon.com/images/I/21b6ifv0QlL._SY355_.jpg'})
-    .then(product => product.addCategory(2)),
-    Product.create({name: 'Nimbus 2000', price: 699.99, description: 'This is the greatest broomstick of all time', inventory: 3, photo: 'https://vignette.wikia.nocookie.net/harrypotter/images/0/0f/Nimbus_2000_1.jpg/revision/latest?cb=20150530185551'})
-    .then(product => product.addCategory(1)),
-    Product.create({name: 'Mystery Object', price: 10, description: '???', inventory: 1})
-    .then(product => product.addCategory(3))
+    Product.create({
+      name: 'Elder Wand',
+      price: 199.99,
+      description: 'This is the greatest wand of all time',
+      inventory: 5,
+      photo:
+        'https://images-na.ssl-images-amazon.com/images/I/21b6ifv0QlL._SY355_.jpg'
+    }).then(product => product.addCategories([2, 4, 5])),
+    Product.create({
+      name: 'Nimbus 2000',
+      price: 699.99,
+      description: 'This is the greatest broomstick of all time',
+      inventory: 3,
+      photo:
+        'https://vignette.wikia.nocookie.net/harrypotter/images/0/0f/Nimbus_2000_1.jpg/revision/latest?cb=20150530185551'
+    }).then(product => product.addCategories([1, 4, 5])),
+    Product.create({
+      name: 'Mystery Object',
+      price: 10,
+      description: '???',
+      inventory: 1
+    }).then(product => product.addCategories([3, 5]))
   ]);
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator

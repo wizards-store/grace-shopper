@@ -43,11 +43,11 @@ class AllProducts extends Component {
   render () {
     let products = this.props.products;
     let categories = [];
-    Object.keys(products).forEach(key => {
-      let product = products[key];
+
+    Object.values(products).forEach(product => {
       product.categories.forEach(category => {
-        if (!categories.includes(category)) {
-          categories.push(category);
+        if (!categories.includes(category.name)) {
+          categories.push(category.name);
         }
       });
     });

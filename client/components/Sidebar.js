@@ -9,10 +9,10 @@ const Sidebar = props => (
 
     {props.categories.map(category => {
       return (
-        <React.Fragment key={category.id}>
+        <React.Fragment key={category}>
           <Checkbox
             className="checkbox"
-            label={category.name}
+            label={category}
             onClick={props.onFilterClick}
           />
           <br />
