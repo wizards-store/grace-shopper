@@ -44,10 +44,7 @@ export function subtractQuantity (product) {
   return function (dispatch) {
     return axios
       .post(`/api/cart/subtract`, product)
-      .then(res => {
-        dispatch(getCart());
-        dispatch(subtractSingleQuantity(res.data));
-      })
+      .then(res => dispatch(subtractSingleQuantity(res.data)))
       .catch(err => console.error(err));
   };
 }
@@ -65,10 +62,7 @@ export function deleteProduct (product) {
   return function (dispatch) {
     return axios
       .delete(`/api/cart/${product.id}`)
-      .then(res => {
-        dispatch(getCart());
-        dispatch(deleteSingleProduct(res.data));
-      })
+      .then(res => dispatch(deleteSingleProduct(res.data)))
       .catch(err => console.error(err));
   };
 }
