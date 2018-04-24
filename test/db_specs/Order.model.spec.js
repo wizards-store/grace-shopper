@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const db = require('../../server/db');
 const Order = db.model('order');
 
-describe.only('Order model', () => {
+describe('Order model', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
