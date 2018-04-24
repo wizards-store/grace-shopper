@@ -64,9 +64,7 @@ const AuthForm = props => {
             </Segment>
             {error && error.response && <div> {error.response.data} </div>}
           </Form>
-          <Message>
-            New to us? <a href="#">Sign Up</a>
-          </Message>
+
           <a href="/auth/google">{displayName} with Google</a>
         </Grid.Column>
       </Grid>
