@@ -10,31 +10,27 @@ module.exports = router;
 
 router.post('/', async (req, res, next) => {
   if (req.user) {
-    console.log('need to put something');
     const order = await Order.find({
       where: {
         userId: req.user.dataValues.id,
         isCheckedOut: false,
-      },
+      }
     });
-
     await order.update({
-      total: 1000,
+      total: 1000, // FIX 
       isCheckedOut: true,
     });
     res.status(201).json({});
   } else {
-    const total = () => {
-      const cart = req.session.cart;
+    const total = (cart) => {
       let sum = 0;
       Object.values(cart).forEach(product => {
         sum += +(product.price * product.quantity);
       });
       return sum * 100;
     };
-
     const charge = await stripe.charges.create({
-      amount: Number(total()),
+      amount: total(req.session.cart),
       currency: 'usd',
       description: 'wizard supply shop',
       source: req.body.id,
@@ -43,7 +39,7 @@ router.post('/', async (req, res, next) => {
     const predicate = (value, key) => {
       return key.startsWith('id') || key.startsWith('quantity');
     };
-
+    
     // [{id: 1, name: 'hehe', ..}, {id: 2, ...}]
     const arrayOfProducts = Object.values(req.session.cart);
     const productArr = arrayOfProducts.map(filterObj => {

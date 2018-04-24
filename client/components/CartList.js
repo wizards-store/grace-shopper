@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import Payments from './Payments';
-import {
-  getCart,
-  deleteProduct,
-  postCart,
-  subtractQuantity,
-  fetchAllProducts,
-} from '../store';
+import { getCart, deleteProduct, postToCart, subtractQuantity, fetchAllProducts } from '../store';
 
 class CartList extends Component {
   componentDidMount () {
@@ -25,9 +19,6 @@ class CartList extends Component {
       handleAddClick,
       handleSubtractClick,
     } = this.props;
-
-    console.log('what is this.props.products', products);
-    console.log('what is cart', cart);
     return (
       <div>
         {Object.keys(products).length ? (
@@ -110,11 +101,11 @@ function mapDispatchToProps (dispatch) {
       dispatch(deleteProduct(product));
     },
     handleAddClick (product) {
-      dispatch(postCart(product));
+      dispatch(postToCart(product));
     },
     handleSubtractClick (product) {
       dispatch(subtractQuantity(product));
-    },
+    }
   };
 }
 

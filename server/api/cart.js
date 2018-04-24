@@ -68,13 +68,13 @@ router.get('/', async (req, res, next) => {
         _.keyBy(productArr, 'productId'),
         'quantity'
       );
-      res.status(200).json(productIdAndQuantityObj);
+      res.json(productIdAndQuantityObj);
     } else {
       const fetchCart = await findFunction(req.user.dataValues.id);
       res.status(201).json(fetchCart);
     }
   } else {
-    res.status(200).json(req.session.cart);
+    res.json(req.session.cart);
   }
 });
 
@@ -83,7 +83,6 @@ router.post('/', async (req, res, next) => {
   const productToAdd = req.body; // the product to add to cart
 
   if (req.user) {
-    console.log('what is req.user', req.user);
     const cart = await Order.find({
       where: {
         userId: req.user.dataValues.id,
@@ -134,7 +133,7 @@ router.post('/', async (req, res, next) => {
     // if the user is not logged in
     if (!req.session.cart[productToAdd.id]) {
       req.session.cart[productToAdd.id] = productToAdd;
-      req.session.cart[productToAdd.id].quantity = Number(1);
+      req.session.cart[productToAdd.id].quantity = 1;
       res.status(201).json(req.session.cart);
     } else {
       req.session.cart[productToAdd.id].quantity += 1;
@@ -163,15 +162,13 @@ router.delete('/:id', async (req, res, next) => {
     res.status(201).json(fetchCart);
   } else {
     const productToDelete = req.params.id;
-    console.log('what is req.session.cart before delete', req.session.cart);
     delete req.session.cart[productToDelete];
-    console.log('what is req.session.cart after delete', req.session.cart);
     res.status(201).json(req.session.cart);
   }
 });
 
 // POST / cart subtract
-router.post('/subtract', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   const productToDelete = req.body;
 
   if (req.user) {
