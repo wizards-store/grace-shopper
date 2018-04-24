@@ -7,9 +7,9 @@ const DELETE_SINGLE_PRODUCT = 'DELETE_SINGLE_PRODUCT';
 const SUBTRACT_SINGLE_QUANTITY = 'SUBTRACT_SINGLE_QUANTITY';
 const POST_SINGLE_PAYMENT = 'POST_SINGLE_PAYMENT';
 
-const postSingleCart = singleProduct => ({
+const postSingleCart = singleCart => ({
   type: POST_SINGLE_CART,
-  singleProduct,
+  singleCart,
 });
 
 const getSingleCart = singleCart => ({
@@ -27,15 +27,19 @@ const subtractSingleQuantity = singleCart => ({
   singleCart,
 });
 
-const postSinglePayment = () => ({
-  type: POST_SINGLE_PAYMENT
+const postSinglePayment = emptyCart => ({
+  type: POST_SINGLE_PAYMENT,
+  emptyCart,
 });
 
 export function postCart (product) {
   return function (dispatch) {
     return axios
       .post(`/api/cart`, product)
-      .then(res => dispatch(postSingleCart(res.data)))
+      .then(res => {
+        dispatch(postSingleCart(res.data));
+        // dispatch(getCart());
+      })
       .catch(err => console.error(err));
   };
 }
@@ -62,16 +66,20 @@ export function deleteProduct (product) {
   return function (dispatch) {
     return axios
       .delete(`/api/cart/${product.id}`)
-      .then(res => dispatch(deleteSingleProduct(res.data)))
+      .then(res => {
+        dispatch(deleteSingleProduct(res.data));
+        // dispatch(getCart());
+      })
       .catch(err => console.error(err));
   };
 }
 
 export function postPayment (token) {
+  console.log('what is token', token);
   return function (dispatch) {
     return axios
       .post(`/api/stripe`, token)
-      .then(res => dispatch(postSinglePayment()))
+      .then(res => dispatch(postSinglePayment(res.data)))
       .then(() => history.push('/success'))
       .catch(err => console.error(err));
   };
@@ -80,10 +88,11 @@ export function postPayment (token) {
 export default function cartReducer (state = {}, action) {
   switch (action.type) {
     case POST_SINGLE_CART:
-      return {
-        ...state,
-        [action.singleProduct.id]: action.singleProduct,
-      };
+      // return {
+      //   ...state,
+      //   [action.singleProduct.id]: action.singleProduct,
+      // };
+      return action.singleCart;
 
     case SUBTRACT_SINGLE_QUANTITY:
       return action.singleCart;
@@ -95,7 +104,7 @@ export default function cartReducer (state = {}, action) {
       return action.singleCart;
 
     case POST_SINGLE_PAYMENT:
-      return {};
+      return action.emptyCart;
 
     default:
       return state;

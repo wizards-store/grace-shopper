@@ -9,36 +9,36 @@ const Product = db.define(
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     price: {
       type: Sequelize.DECIMAL,
       allowNull: false,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     description: {
-      type: Sequelize.TEXT
+      type: Sequelize.TEXT,
     },
     inventory: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     photo: {
       type: Sequelize.STRING,
       defaultValue:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ_TkUBCyPp2wqsBYH3uFPSbakLS7sxXHCz5H3aWZZnjrES4bb'
-    }
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ_TkUBCyPp2wqsBYH3uFPSbakLS7sxXHCz5H3aWZZnjrES4bb',
+    },
   },
   {
     defaultScope: {
-      include: [{ model: Category }]
-    }
+      include: [{ model: Category }],
+    },
   }
 );
 
