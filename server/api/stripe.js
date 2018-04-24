@@ -9,8 +9,7 @@ const Order_Product = models.Order_Product;
 module.exports = router;
 
 router.post('/', async (req, res, next) => {
-  const total = () => {
-    const cart = req.session.cart;
+  const total = cart => {
     let sum = 0;
     Object.values(cart).forEach(product => {
       sum += +(product.price * product.quantity);
@@ -19,10 +18,10 @@ router.post('/', async (req, res, next) => {
   };
 
   const charge = await stripe.charges.create({
-    amount: Number(total()),
+    amount: total(req.session.cart),
     currency: 'usd',
     description: 'wizard supply shop',
-    source: req.body.id,
+    source: req.body.id
   });
 
   const predicate = (value, key) => {
@@ -38,7 +37,7 @@ router.post('/', async (req, res, next) => {
   await Order.create({
     total: charge.amount,
     sessionId: req.session.id,
-    isCheckedOut: true,
+    isCheckedOut: true
   })
     .then(newOrder => {
       // newOrder.addProducts(productArr)
@@ -46,16 +45,14 @@ router.post('/', async (req, res, next) => {
         Product.update(
           { inventory: Sequelize.literal(`inventory - ${product.quantity}`) },
           {
-            where: { id: product.id },
+            where: { id: product.id }
           }
         );
-      });
 
-      productObj.forEach(product => {
-        return Order_Product.create({
+        Order_Product.create({
           orderId: newOrder.id,
           productId: product.id,
-          quantity: product.quantity,
+          quantity: product.quantity
         });
       });
 

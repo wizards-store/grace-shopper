@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form } from 'semantic-ui-react';
-import { postCart } from '../store';
+import { postToCart } from '../store';
 
 const CartForm = props => {
   const { product, handleSubmit, user } = props;
@@ -17,7 +17,7 @@ const CartForm = props => {
 
 function mapStateToProps (state) {
   return {
-    user: state.user,
+    user: state.user
   };
 }
 
@@ -25,8 +25,8 @@ function mapDispatchToProps (dispatch) {
   return {
     handleSubmit (product, evt) {
       evt.preventDefault();
-      dispatch(postCart(product));
-    },
+      dispatch(postToCart(product));
+    }
   };
 }
 

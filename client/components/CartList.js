@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import Payments from './Payments';
-import { getCart, deleteProduct, postCart, subtractQuantity } from '../store';
+import { getCart, deleteProduct, postToCart, subtractQuantity } from '../store';
 
 class CartList extends Component {
   componentDidMount () {
@@ -10,8 +10,13 @@ class CartList extends Component {
   }
 
   render () {
-    const { cart, handleClick, handleAddClick, handleSubtractClick } = this.props;
-    
+    const {
+      cart,
+      handleClick,
+      handleAddClick,
+      handleSubtractClick
+    } = this.props;
+
     return (
       <div>
         {Object.keys(cart).length ? (
@@ -31,9 +36,7 @@ class CartList extends Component {
                       </button>
                       <Card.Header>{product.name}</Card.Header>
                       <Card.Meta>{product.createdAt}</Card.Meta>
-                      <Card.Description>
-                        {product.description}
-                      </Card.Description>
+                      <Card.Description>{product.description}</Card.Description>
                     </Card.Content>
 
                     <Card.Content extra>
@@ -84,15 +87,15 @@ function mapDispatchToProps (dispatch) {
   return {
     getCart: () => dispatch(getCart()),
     // don't need "handleClick" for every dispatch function - can be named anything you want more descriptive
-    handleClick (product) { 
+    handleClick (product) {
       dispatch(deleteProduct(product));
     },
     handleAddClick (product) {
-      dispatch(postCart(product));
+      dispatch(postToCart(product));
     },
     handleSubtractClick (product) {
       dispatch(subtractQuantity(product));
-    },
+    }
   };
 }
 
