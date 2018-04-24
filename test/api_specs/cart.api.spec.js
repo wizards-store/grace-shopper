@@ -12,21 +12,28 @@ describe('Cart routes', () => {
   });
 
   describe('/api/cart', () => {
+    const fakeUser = {
+      email: 'josh@email.com'
+    };
+
+    const fakeProduct = {
+      name: 'Nimbus 2000',
+      price: 300,
+      description: `Harry's first broom`,
+      category: 'broom'
+    };
+
     beforeEach(() => {
-      return Order.create({});
+      return User.create(fakeUser).then(() => Product.create(fakeProduct));
+    });
+
+    it('posts a cart to the Order model', () => {
+      return request(app)
+        .post('/api/cart', fakeProduct)
+        .expect(201)
+        .then(res => {
+          expect(res.body).to.equal(fakeProduct);
+        });
     });
   });
 });
-
-/*
-
--req.body needs to look like this:
-{
-  name: 'Nimbus 2000',
-  price: 300,
-  description: 'Harry's first broom',
-  category: 'broom'
-}
-
-
-*/
