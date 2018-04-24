@@ -11,15 +11,15 @@ async function findFunction (userId) {
   const order = await Order.find({
     where: {
       userId: userId,
-      isCheckedOut: false,
-    },
+      isCheckedOut: false
+    }
   });
 
   const cart = await Order_Product.findAll({
     where: {
-      orderId: order.id,
+      orderId: order.id
     },
-    raw: true,
+    raw: true
   });
 
   const predicate = (value, key) => {
@@ -44,16 +44,16 @@ router.get('/', async (req, res, next) => {
     const cart = await Order.find({
       where: {
         userId: req.user.dataValues.id,
-        isCheckedOut: false,
-      },
+        isCheckedOut: false
+      }
     });
 
     if (cart) {
       const cartItems = await Order_Product.findAll({
         where: {
-          orderId: cart.id,
+          orderId: cart.id
         },
-        raw: true,
+        raw: true
       });
 
       const predicate = (value, key) => {
@@ -86,21 +86,21 @@ router.post('/', async (req, res, next) => {
     const cart = await Order.find({
       where: {
         userId: req.user.dataValues.id,
-        isCheckedOut: false,
-      },
+        isCheckedOut: false
+      }
     });
 
     if (cart) {
       const cartItems = await Order_Product.find({
         where: {
           orderId: cart.id,
-          productId: productToAdd.id,
-        },
+          productId: productToAdd.id
+        }
       });
 
       if (cartItems) {
         await cartItems.update({
-          quantity: Sequelize.literal(`quantity + 1`),
+          quantity: Sequelize.literal(`quantity + 1`)
         });
 
         const fetchCart = await findFunction(req.user.dataValues.id);
@@ -109,7 +109,7 @@ router.post('/', async (req, res, next) => {
         await Order_Product.create({
           orderId: cart.id,
           productId: productToAdd.id,
-          quantity: 1,
+          quantity: 1
         });
 
         const fetchCart = await findFunction(req.user.dataValues.id);
@@ -117,13 +117,13 @@ router.post('/', async (req, res, next) => {
       }
     } else {
       const createdOrder = await Order.create({
-        userId: req.user.dataValues.id,
+        userId: req.user.dataValues.id
       });
 
       await Order_Product.create({
         orderId: createdOrder.id,
         productId: productToAdd.id,
-        quantity: 1,
+        quantity: 1
       });
 
       const fetchCart = await findFunction(req.user.dataValues.id);
@@ -148,14 +148,14 @@ router.delete('/:id', async (req, res, next) => {
     const cart = await Order.find({
       where: {
         userId: req.user.dataValues.id,
-        isCheckedOut: false,
-      },
+        isCheckedOut: false
+      }
     });
     await Order_Product.destroy({
       where: {
         orderId: cart.id,
-        productId: req.params.id,
-      },
+        productId: req.params.id
+      }
     });
 
     const fetchCart = await findFunction(req.user.dataValues.id);
@@ -175,19 +175,19 @@ router.put('/', async (req, res, next) => {
     const cart = await Order.find({
       where: {
         userId: req.user.dataValues.id,
-        isCheckedOut: false,
-      },
+        isCheckedOut: false
+      }
     });
 
     const cartItems = await Order_Product.find({
       where: {
         orderId: cart.id,
-        productId: productToDelete.id,
-      },
+        productId: productToDelete.id
+      }
     });
 
     await cartItems.update({
-      quantity: Sequelize.literal(`quantity - 1`),
+      quantity: Sequelize.literal(`quantity - 1`)
     });
 
     const fetchCart = await findFunction(req.user.dataValues.id);
