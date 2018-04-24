@@ -4,7 +4,7 @@ import { Button, Form } from 'semantic-ui-react';
 import { postToCart } from '../store';
 
 const CartForm = props => {
-  const { product, handleSubmit, user } = props;
+  const { product, handleSubmit } = props;
 
   return (
     <Form onSubmit={evt => handleSubmit(product, evt)}>
@@ -15,12 +15,6 @@ const CartForm = props => {
   );
 };
 
-function mapStateToProps (state) {
-  return {
-    user: state.user
-  };
-}
-
 function mapDispatchToProps (dispatch) {
   return {
     handleSubmit (product, evt) {
@@ -30,8 +24,6 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-const CartFormContainer = connect(mapStateToProps, mapDispatchToProps)(
-  CartForm
-);
+const CartFormContainer = connect(null, mapDispatchToProps)(CartForm);
 
 export default CartFormContainer;

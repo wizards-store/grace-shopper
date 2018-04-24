@@ -12,7 +12,6 @@ const POST_SINGLE_PAYMENT = 'POST_SINGLE_PAYMENT';
 /*
  * ACTION CREATORS
  */
-
 const postProductToCart = singleProduct => ({
   type: POST_PRODUCT_TO_CART,
   singleProduct
@@ -23,8 +22,9 @@ const postCart = cart => ({
   cart
 });
 
-const postSinglePayment = () => ({
-  type: POST_SINGLE_PAYMENT
+const postSinglePayment = emptyCart => ({
+  type: POST_SINGLE_PAYMENT,
+  emptyCart,
 });
 
 /*
@@ -68,10 +68,11 @@ export function deleteProduct (product) {
 }
 
 export function postPayment (token) {
+  console.log('what is token', token);
   return function (dispatch) {
     return axios
       .post(`/api/stripe`, token)
-      .then(res => dispatch(postSinglePayment()))
+      .then(res => dispatch(postSinglePayment(res.data)))
       .then(() => history.push('/success'))
       .catch(err => console.error(err));
   };
@@ -93,7 +94,7 @@ export default function cartReducer (state = {}, action) {
       return action.singleCart;
 
     case POST_SINGLE_PAYMENT:
-      return {};
+      return action.emptyCart;
 
     default:
       return state;

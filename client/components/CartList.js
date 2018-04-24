@@ -2,29 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import Payments from './Payments';
-import { getCart, deleteProduct, postToCart, subtractQuantity } from '../store';
+import { getCart, deleteProduct, postToCart, subtractQuantity, fetchAllProducts } from '../store';
 
 class CartList extends Component {
   componentDidMount () {
+    this.props.fetchAllProducts();
     this.props.getCart();
   }
 
   render () {
     const {
       cart,
+      products,
+      user,
       handleClick,
       handleAddClick,
-      handleSubtractClick
+      handleSubtractClick,
     } = this.props;
-
     return (
       <div>
-        {Object.keys(cart).length ? (
+        {Object.keys(products).length ? (
           <div>
-            {Object.keys(cart).map(key => {
-              let product = cart[key];
+            {Object.keys(cart).map(itemId => {
+              console.log('what is itemId', itemId);
+              console.log('what is cart', cart);
+              let product = products[itemId];
+              console.log('what is product', product);
               return (
-                <div key={product.id}>
+                <div key={itemId}>
                   <Card>
                     <Image src={product.photo} />
                     <Card.Content>
@@ -42,7 +47,7 @@ class CartList extends Component {
                     <Card.Content extra>
                       <a>
                         <Icon name="user" />
-                        {product.quantity}
+                        {user.id ? cart[itemId] : cart[itemId].quantity}
                       </a>
                       <hr />
                       <Button
@@ -60,7 +65,9 @@ class CartList extends Component {
                       <hr />
                       <a>
                         <Icon name="user" />
-                        {product.price * product.quantity}
+                        {user.id
+                          ? product.price * cart[itemId]
+                          : product.price * cart[itemId].quantity}
                       </a>
                     </Card.Content>
                   </Card>
@@ -79,13 +86,16 @@ class CartList extends Component {
 
 function mapStateToProps (state) {
   return {
-    cart: state.cart
+    cart: state.cart,
+    products: state.products,
+    user: state.user,
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     getCart: () => dispatch(getCart()),
+    fetchAllProducts: () => dispatch(fetchAllProducts()),
     // don't need "handleClick" for every dispatch function - can be named anything you want more descriptive
     handleClick (product) {
       dispatch(deleteProduct(product));

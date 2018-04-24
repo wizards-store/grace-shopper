@@ -4,18 +4,26 @@ import { connect } from 'react-redux';
 import { postPayment } from '../store';
 
 class Payments extends Component {
-  total = () => {
-    const cart = this.props.cart;
+  total () {
+    // const cart = this.props.cart;
+    const { cart, products, user } = this.props;
     let sum = 0;
-    Object.values(cart).forEach(product => {
-      sum += +(product.price * product.quantity);
-    });
-    return sum * 100;
-  };
+
+    if (user.id) {
+      Object.keys(cart).forEach(itemKey => {
+        sum += +(products[itemKey].price * cart[itemKey]);
+      });
+      return sum * 100;
+    } else {
+      Object.values(cart).forEach(product => {
+        sum += +(product.price * product.quantity);
+      });
+      return sum * 100;
+    }
+  }
 
   render () {
     const { handleToken } = this.props;
-
     return (
       <StripeCheckout
         name="Wizard Supply Shop"
@@ -33,6 +41,14 @@ class Payments extends Component {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    cart: state.cart,
+    products: state.products,
+    user: state.user,
+  };
+}
+
 function mapDispatchToProps (dispatch) {
   return {
     handleToken (token) {
@@ -41,6 +57,8 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-const PaymentsContainer = connect(null, mapDispatchToProps)(Payments);
+const PaymentsContainer = connect(mapStateToProps, mapDispatchToProps)(
+  Payments
+);
 
 export default PaymentsContainer;
