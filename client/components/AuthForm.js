@@ -36,8 +36,8 @@ const AuthForm = props => {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" color="teal" textAlign="center">
-            <Icon circular inverted color="teal" name="users" /> Log-in to your
-            account
+            <Icon circular inverted color="teal" name="users" />
+            {displayName === 'Login' ? 'Log-in to your account' : 'Sign up!'}
           </Header>
 
           <Form size="large" onSubmit={handleSubmit} name={name}>
