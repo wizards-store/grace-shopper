@@ -91,7 +91,7 @@ export default function cartReducer (state = {}, action) {
       };
 
     case POST_CART:
-      return action.singleCart;
+      return action.cart;
 
     case POST_SINGLE_PAYMENT:
       return action.emptyCart;
