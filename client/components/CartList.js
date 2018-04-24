@@ -85,7 +85,7 @@ function mapStateToProps (state) {
   return {
     cart: state.cart,
     products: state.products,
-    user: state.user,
+    user: state.user
   };
 }
 

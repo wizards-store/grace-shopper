@@ -54,10 +54,12 @@ const createApp = () => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // initialize cart on session
+  // initialize cart and wishlist on session
   app.use((req, res, next) => {
     // if there is no cart on session, make a new empty one
     if (!req.session.cart) req.session.cart = {};
+    // for a logged in user, if there is no wishlist on session, make a new empty one
+    if (!req.session.wishlist) req.session.wishlist = {};
     next();
   });
 

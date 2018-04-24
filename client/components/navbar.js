@@ -17,14 +17,14 @@ class Navbar extends React.Component {
     return (
       <div>
         <Menu secondary className="navMenu">
-          <Menu.Item
+          {<Menu.Item
             as={Link}
             to="/"
             name="Wizard Supply Shop"
             className="homeLogo"
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
-          />
+          />}
           <Menu.Item
             as={Link}
             to="/products"
@@ -40,6 +40,14 @@ class Navbar extends React.Component {
               active={activeItem === 'cart'}
               onClick={this.handleItemClick}
             />
+            {this.props.isLoggedIn ?
+              (<Menu.Item
+              as={Link}
+              to="/wishlist"
+              name="Wishlist"
+              active={activeItem === 'wishlist'}
+              onClick={this.handleItemClick}
+              />) : null}
           {this.props.isLoggedIn ? (
             <Menu.Item
               name="logout"

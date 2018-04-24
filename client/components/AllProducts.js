@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllProducts } from '../store';
-import CartForm from './CartForm';
+import CartButton from './CartButton';
+import WishlistButton from './WishlistButton';
 import Sidebar from './Sidebar';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import { createFilter } from 'react-search-input';
 
 class AllProducts extends Component {
@@ -42,6 +43,7 @@ class AllProducts extends Component {
   render () {
     let products = this.props.products;
     let categories = [];
+    let user = this.props.user;
 
     Object.values(products).forEach(product => {
       product.categories.forEach(category => {
@@ -83,7 +85,8 @@ class AllProducts extends Component {
                     </Card.Content>
                     <Card.Content extra>
                       <p>{product.price}</p>
-                      <CartForm product={product} />
+                      <CartButton product={product} />
+                      {user.id ? <WishlistButton product={product} /> : null}
                     </Card.Content>
                   </Card>
                 </div>
@@ -101,7 +104,8 @@ class AllProducts extends Component {
 // Container
 function mapStateToProps (state) {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user
   };
 }
 

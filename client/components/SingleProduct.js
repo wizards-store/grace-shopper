@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store';
-import CartForm from './CartForm';
+import CartButton from './CartButton';
 
 class SingleProduct extends Component {
   componentDidMount () {
@@ -12,7 +12,7 @@ class SingleProduct extends Component {
     return (
       <div>
         {this.props.product ? <h3>{this.props.product.name}</h3> : null}
-        <CartForm product={this.props.product} />
+        <CartButton product={this.props.product} />
       </div>
     );
   }
