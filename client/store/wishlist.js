@@ -39,7 +39,9 @@ export function deleteWishlistProduct (product) {
   return function (dispatch) {
     return axios
       .delete(`/api/wishlist/${product.id}`)
-      .then(res => dispatch(postWishlist(res.data)))
+      .then(res => {
+        dispatch(postWishlist(res.data));
+      })
       .catch(err => console.error(err));
   };
 }

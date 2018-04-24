@@ -66,7 +66,6 @@ export function deleteProduct (product) {
 }
 
 export function postPayment (token) {
-  console.log('what is token', token);
   return function (dispatch) {
     return axios
       .post(`/api/stripe`, token)

@@ -28,6 +28,6 @@ router.delete('/:id', (req, res, next) => {
   if (req.user) {
     const productToDelete = req.params.id;
     delete req.session.wishlist[productToDelete];
-    res.status(404).json(req.session.wishlist);
+    res.status(201).json(req.session.wishlist);
   }
 });
