@@ -17,14 +17,16 @@ class Navbar extends React.Component {
     return (
       <div>
         <Menu secondary className="navMenu">
-          {<Menu.Item
-            as={Link}
-            to="/"
-            name="Wizard Supply Shop"
-            className="homeLogo"
-            active={activeItem === 'home'}
-            onClick={this.handleItemClick}
-          />}
+          {
+            <Menu.Item
+              as={Link}
+              to="/"
+              name="WizBang!"
+              className="homeLogo"
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
+            />
+          }
           <Menu.Item
             as={Link}
             to="/products"
@@ -32,7 +34,7 @@ class Navbar extends React.Component {
             active={activeItem === 'products'}
             onClick={this.handleItemClick}
           />
-        <Menu.Menu position="right">
+          <Menu.Menu position="right">
             <Menu.Item
               as={Link}
               to="/cartList"
@@ -40,20 +42,21 @@ class Navbar extends React.Component {
               active={activeItem === 'cart'}
               onClick={this.handleItemClick}
             />
-            {this.props.isLoggedIn ?
-              (<Menu.Item
-              as={Link}
-              to="/wishlist"
-              name="Wishlist"
-              active={activeItem === 'wishlist'}
-              onClick={this.handleItemClick}
-              />) : null}
-          {this.props.isLoggedIn ? (
-            <Menu.Item
-              name="logout"
-              active={activeItem === 'logout'}
-              onClick={this.props.handleClick}
-            />
+            {this.props.isLoggedIn ? (
+              <Menu.Item
+                as={Link}
+                to="/wishlist"
+                name="Wishlist"
+                active={activeItem === 'wishlist'}
+                onClick={this.handleItemClick}
+              />
+            ) : null}
+            {this.props.isLoggedIn ? (
+              <Menu.Item
+                name="logout"
+                active={activeItem === 'logout'}
+                onClick={this.props.handleClick}
+              />
             ) : (
               <React.Fragment>
                 <Menu.Item
