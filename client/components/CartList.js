@@ -24,10 +24,7 @@ class CartList extends Component {
         {Object.keys(products).length ? (
           <div>
             {Object.keys(cart).map(itemId => {
-              console.log('what is itemId', itemId);
-              console.log('what is cart', cart);
               let product = products[itemId];
-              console.log('what is product', product);
               return (
                 <div key={itemId}>
                   <Card>

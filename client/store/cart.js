@@ -35,7 +35,7 @@ export function postToCart (product) {
   return function (dispatch) {
     return axios
       .post(`/api/cart`, product)
-      .then(res => dispatch(postProductToCart(res.data)))
+      .then(res => dispatch(postCart(res.data)))
       .catch(err => console.error(err));
   };
 }
@@ -91,7 +91,7 @@ export default function cartReducer (state = {}, action) {
       };
 
     case POST_CART:
-      return action.singleCart;
+      return action.cart;
 
     case POST_SINGLE_PAYMENT:
       return action.emptyCart;
