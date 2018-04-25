@@ -1,41 +1,41 @@
-/* global describe beforeEach afterEach it */
+// /* global describe beforeEach afterEach it */
 
-import { expect } from 'chai';
-import { products } from '../../client/store';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import configureMockStore from 'redux-mock-store';
-import thunkMiddleware from 'redux-thunk';
-// import history from '../history';
+// import { expect } from 'chai';
+// import { products } from '../../client/store';
+// import axios from 'axios';
+// import MockAdapter from 'axios-mock-adapter';
+// import configureMockStore from 'redux-mock-store';
+// import thunkMiddleware from 'redux-thunk';
+// // import history from '../history';
 
-const middlewares = [thunkMiddleware];
-const mockStore = configureMockStore(middlewares);
+// const middlewares = [thunkMiddleware];
+// const mockStore = configureMockStore(middlewares);
 
-describe('thunk creators', () => {
-  let store;
-  let mockAxios;
+// describe('thunk creators', () => {
+//   let store;
+//   let mockAxios;
 
-  const initialState = { allProducts: [] };
+//   const initialState = { allProducts: [] };
 
-  beforeEach(() => {
-    mockAxios = new MockAdapter(axios);
-    store = mockStore(initialState);
-  });
+//   beforeEach(() => {
+//     mockAxios = new MockAdapter(axios);
+//     store = mockStore(initialState);
+//   });
 
-  afterEach(() => {
-    mockAxios.restore();
-    store.clearActions();
-  });
+//   afterEach(() => {
+//     mockAxios.restore();
+//     store.clearActions();
+//   });
 
-  describe('products', () => {
-    it('fetches all products', () => {
-      const fakeProduct = [{ name: 'Nimbus 2000' }];
-      mockAxios.onGet('/api/products').replyOnce(200, fakeProduct);
-      return store.dispatch(products()).then(() => {
-        const actions = store.getActions();
-        expect(actions[0].type).to.be.equal('GET_ALL_PRODUCTS');
-        expect(actions[0].allProducts).to.be.deep.equal(fakeProduct);
-      });
-    });
-  });
-});
+//   describe('products', () => {
+//     it('fetches all products', () => {
+//       const fakeProduct = [{ name: 'Nimbus 2000' }];
+//       mockAxios.onGet('/api/products').replyOnce(200, fakeProduct);
+//       return store.dispatch(products()).then(() => {
+//         const actions = store.getActions();
+//         expect(actions[0].type).to.be.equal('GET_ALL_PRODUCTS');
+//         expect(actions[0].allProducts).to.be.deep.equal(fakeProduct);
+//       });
+//     });
+//   });
+// });

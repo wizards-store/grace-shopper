@@ -14,12 +14,9 @@
     "postinstall": "npm run seed",
     "seed": "node script/seed.js",
     "start": "node server",
-    "start-dev":
-      "NODE_ENV='development' npm run build-client-watch & npm run start-server",
-    "start-server":
-      "nodemon server -e html,js,scss --ignore public --ignore client",
-    "test":
-      "NODE_ENV='test' mocha ./test/**/*.spec.js --require @babel/polyfill --require @babel/register"
+    "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
+    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
+    "test": "NODE_ENV='test' mocha ./test/**/*.spec.js --require @babel/polyfill --require @babel/register --timeout 10000"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
@@ -31,6 +28,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
+    "jsdom": "^11.9.0",
     "lodash": "^4.17.5",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
@@ -50,6 +48,7 @@
     "semantic-ui": "^2.3.1",
     "semantic-ui-react": "^0.79.1",
     "sequelize": "^4.3.1",
+    "sinon": "^4.5.0",
     "socket.io": "^2.0.3",
     "stripe": "^5.8.0"
   },
