@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import { postPayment } from '../store';
-import secretApiKey from '../../secrets.js';
-const apiKey =
-  process.env.NODE_ENV === 'production'
-    ? process.env.SECRET_API_KEY
-    : secretApiKey;
+// import secretApiKey from '../../secrets.js';
+
+const apiKey = 'pk_test_C9LsEs1XJqUeLYrV9QhNRWsT';
 
 class Payments extends Component {
   total () {
