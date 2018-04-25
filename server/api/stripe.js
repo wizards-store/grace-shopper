@@ -17,7 +17,7 @@ router.post('/', async (req, res, next) => {
       }
     });
     await order.update({
-      total: 1000, // FIX 
+      total: 1000, // FIX
       isCheckedOut: true,
     });
     res.status(201).json({});
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
     const predicate = (value, key) => {
       return key.startsWith('id') || key.startsWith('quantity');
     };
-    
+
     // [{id: 1, name: 'hehe', ..}, {id: 2, ...}]
     const arrayOfProducts = Object.values(req.session.cart);
     const productArr = arrayOfProducts.map(filterObj => {
