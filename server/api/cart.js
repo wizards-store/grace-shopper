@@ -7,6 +7,9 @@ const Order_Product = models.Order_Product;
 const Sequelize = require('sequelize');
 const _ = require('lodash');
 
+// AP: TODO- catch errors
+// AP: look at code review for correct status codes
+
 async function findFunction (userId) {
   const order = await Order.find({
     where: {

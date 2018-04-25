@@ -4,7 +4,6 @@ import history from '../history';
 /*
  * ACTIONS
  */
-
 const POST_PRODUCT_TO_CART = 'POST_PRODUCT_TO_CART';
 const POST_CART = 'POST_CART';
 const POST_SINGLE_PAYMENT = 'POST_SINGLE_PAYMENT';
@@ -12,7 +11,7 @@ const POST_SINGLE_PAYMENT = 'POST_SINGLE_PAYMENT';
 /*
  * ACTION CREATORS
  */
-const postProductToCart = singleProduct => ({
+const postProductToCart = singleProduct => ({ // currently unused
   type: POST_PRODUCT_TO_CART,
   singleProduct
 });
@@ -30,7 +29,6 @@ const postSinglePayment = emptyCart => ({
 /*
  * THUNK CREATORS
  */
-
 export function postToCart (product) {
   return function (dispatch) {
     return axios
@@ -68,7 +66,6 @@ export function deleteProduct (product) {
 }
 
 export function postPayment (token) {
-  console.log('what is token', token);
   return function (dispatch) {
     return axios
       .post(`/api/stripe`, token)
@@ -81,7 +78,6 @@ export function postPayment (token) {
 /*
  * REDUCER
  */
-
 export default function cartReducer (state = {}, action) {
   switch (action.type) {
     case POST_PRODUCT_TO_CART:

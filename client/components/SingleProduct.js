@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store';
-import CartForm from './CartForm';
 import { Card, Image } from 'semantic-ui-react';
+import CartButton from './CartButton';
 
 class SingleProduct extends Component {
   componentDidMount () {
@@ -27,7 +27,7 @@ class SingleProduct extends Component {
                 <p>{this.props.product.price}</p>
                 <h3>Product Description:</h3>
                 <p>{this.props.product.description}</p>
-                <CartForm product={this.props.product} />
+                <CartButton product={this.props.product} />
               </Card.Content>
             </Card>
           </div>
