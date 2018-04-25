@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import { postPayment } from '../store';
+import secretApiKey from '../../secrets.js';
+const apiKey =
+  process.env.NODE_ENV === 'production'
+    ? process.env.SECRET_API_KEY
+    : secretApiKey;
 
 class Payments extends Component {
   total () {
@@ -30,7 +35,7 @@ class Payments extends Component {
         description="Thanks for coming by!"
         amount={this.total()}
         token={token => handleToken(token)}
-        stripeKey="pk_test_tFYxJxufub7z64MriHlPVwy3"
+        stripeKey={apiKey}
         allowRememberMe={false}
         shippingAddress={true}
         billingAddress={true}
@@ -45,7 +50,7 @@ function mapStateToProps (state) {
   return {
     cart: state.cart,
     products: state.products,
-    user: state.user,
+    user: state.user
   };
 }
 
@@ -53,7 +58,7 @@ function mapDispatchToProps (dispatch) {
   return {
     handleToken (token) {
       dispatch(postPayment(token));
-    },
+    }
   };
 }
 
