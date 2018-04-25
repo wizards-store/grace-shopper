@@ -1,5 +1,3 @@
-/* global describe beforeEach afterEach it */
-
 import { expect } from 'chai';
 import { fetchAllProducts } from '../../client/store';
 import axios from 'axios';
