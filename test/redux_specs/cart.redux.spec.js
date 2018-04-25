@@ -1,10 +1,12 @@
+/* global describe beforeEach afterEach it */
+
 import { expect } from 'chai';
-import { fetchAllProducts } from '../../client/store';
+import { getCart } from '../../client/store';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
-import history from '../../client/history';
+// import history from '../history';
 
 const middlewares = [thunkMiddleware];
 const mockStore = configureMockStore(middlewares);
@@ -13,7 +15,7 @@ describe('thunk creators', () => {
   let store;
   let mockAxios;
 
-  const initialState = { allProducts: [] };
+  const initialState = { cart: {} };
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios);
@@ -25,14 +27,14 @@ describe('thunk creators', () => {
     store.clearActions();
   });
 
-  describe('products', () => {
-    it('fetches all products', () => {
-      const fakeProduct = [{ name: 'Nimbus 2000' }];
-      mockAxios.onGet('/api/products').replyOnce(200, fakeProduct);
-      return store.dispatch(fetchAllProducts()).then(() => {
+  describe('cart', () => {
+    it('fetches cart', () => {
+      const fakeCart = { name: 'firebolt', price: 700 };
+      mockAxios.onGet('/api/carts').replyOnce(200, fakeCart);
+      return store.dispatch(getCart()).then(() => {
         const actions = store.getActions();
-        expect(actions[0].type).to.be.equal('GET_ALL_PRODUCTS');
-        expect(actions[0].allProducts).to.be.deep.equal(fakeProduct);
+        expect(actions[0].type).to.be.equal('POST_CART');
+        expect(actions[0].cart).to.be.deep.equal(fakeCart);
       });
     });
   });
